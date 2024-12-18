@@ -1,0 +1,203 @@
+\documentclass{article}
+\usepackage{luatexja}            % LuaTeX用の日本語パッケージ
+\usepackage{luatexja-fontspec}   % フォント指定用パッケージ
+\setmainjfont{IPAexMincho}       % 日本語フォントを指定
+\usepackage{xcolor}              % 色の定義用パッケージ
+\usepackage{listings}            % コード表示用パッケージ
+
+\lstset{
+    basicstyle=\ttfamily,
+    frame=single,
+    breaklines=true,
+    numbers=left,
+    numberstyle=\tiny,
+    backgroundcolor=\color{gray!10},
+    rulesepcolor=\color{gray!10}
+}
+
+\lstdefinelanguage{json}{
+    basicstyle=\normalsize\ttfamily,
+    numbers=left,
+    numberstyle=\scriptsize,
+    stepnumber=1,
+    numbersep=8pt,
+    showstringspaces=false,
+    breaklines=true,
+    frame=lines,
+    backgroundcolor=\color{gray!10},
+    stringstyle=\color{red},
+    keywordstyle=\color{blue}\bfseries,
+    keywords={true, false, null}
+}
+
+\begin{document}
+
+\part{wslでtexliveをinstallする}
+
+\section{TeXLiveをインストール}
+Ubuntu/Debian系の場合、ターミナルで以下を実行する。\par
+
+\begin{lstlisting}[language=bash]
+sudo apt update
+sudo apt install texlive-full
+\end{lstlisting}
+
+Windowsの場合\par
+\begin{enumerate}
+\item TeXLiveの公式サイトからインストーラーをダウンロードする。\par
+\item インストーラーを実行し、指示にしたがってインストールする。\par
+\end{enumerate}
+
+\par
+macOSの場合、以下を実行する。\par
+
+\begin{lstlisting}[language=bash]
+brew install --cask mactex
+\end{lstlisting}
+
+\section{VS Codeの拡張機能をインストール}
+VS CodeでLaTeXを快適に使うために、以下の拡張機能をインストールする。\par
+
+\begin{enumerate}
+\item LaTeX Workshopをインストールする\par
+\item VS Codeを開く\par
+\item 左側の拡張機能アイコンをクリック\par
+\item 検索バーに「LaTeX Workshop」と入力\par
+\item「LaTeX Workshop」を選択し、「インストール」をクリック\par
+\end{enumerate}
+
+\newpage
+
+\section{TeXLiveとVS Codeの設定}
+LaTeX Workshop拡張機能を適切に動作させるために設定を確認します。\par
+
+\begin{enumerate}
+    \item 設定ファイルを編集\par
+    以下の内容を`Settings (JSON)`に追加します。\par
+    
+    \begin{lstlisting}[language=json]
+    "latex-workshop.latex.toolchain": [
+        {
+            "command": "pdflatex",
+            "args": [
+                "-synctex=1",
+                "-interaction=nonstopmode",
+                "-file-line-error",
+                "%DOC%"
+            ]
+        }
+    ],
+    "latex-workshop.latex.outDir": "./out"
+    \end{lstlisting}
+    
+    \item 必要に応じて環境変数を確認\par
+    以下を実行して、PATHが正しいことを確認します。\par
+    
+    \begin{lstlisting}[language=bash]
+    echo $PATH
+    \end{lstlisting}
+\end{enumerate}
+
+\section{動作確認}
+
+\begin{enumerate}
+    \item `tex`ファイルを作成\par
+
+    \begin{lstlisting}[language=tex]
+    \documentclass{article}
+    \begin{document}
+    Hello, LaTeX!
+    \end{document}
+    \end{lstlisting}
+    \item ファイルを保存し、自動でPDFが生成されるか確認します。\par
+\end{enumerate}
+
+\newpage
+
+\part{rgtレポジトリをクローンし、rgt.styをtexmf-homeに設置する}
+
+\section{レポジトリをクローン}
+以下を実行してレポジトリをクローンします。\par
+
+\begin{lstlisting}[language=bash]
+git clone https://github.com/username/rgt.git
+\end{lstlisting}
+
+\section{クローン後の確認}
+
+\begin{enumerate}
+    \item ディレクトリに移動し、ファイル一覧を確認します。\par
+
+    \begin{lstlisting}[language=bash]
+    cd rgt
+    ls
+    \end{lstlisting}
+    
+    \item 出力された結果からどのディレクトリにクローンされているかがわかります。\par
+    \item \begin{lstlisting}[language=bash]
+        README.md doc example
+        \end{lstlisting}
+
+\end{enumerate}
+
+
+
+\section{rgt.styをtexmf-homeに設置}
+以下を実行して、`texmf-home`にパスが通っていることを確認します。\par
+
+\begin{lstlisting}[language=bash]
+mktexlsr
+kpsewhich rgt.sty
+\end{lstlisting}
+
+    \part{多重texmfツリー}
+
+    \section{多重texmfツリーとは}
+    異なる種類のTeXパッケージやフォントなどを整理し、管理するためのディレクトリ構造のこと。
+
+    \section{基本的なtexmfツリーの構成}
+
+        \begin{enumerate}
+
+            \item メインのtexmfツリー
+                \begin{itemize}
+                    \item TeX LiveやMiKTeXなどのTeXディストリビューションに含まれる標準のツリー
+                    \item グローバルなパッケージやフォントがインストールされる
+                \end{itemize}
+            
+            \item ローカルtexmfツリー   
+                \begin{itemize}
+                    \item ユーザが追加のパッケージやフォントをインストールするためのツリー
+                    \item システムのメインツリーに影響を与えることなく、個別のカスタマイズが可能
+                \end{itemize}
+
+            \item ホームtexmfツリー
+                \begin{itemize}
+                    \item 個々のユーザーのホームディレクトリ内に設定されるツリー
+                    \item ユーザー固有の設定やパッケージを保持
+                \end{itemize}
+
+        \end{enumerate}
+
+    \section{多重texmfツリーの利点}
+
+        \begin{enumerate}
+
+            \item 柔軟性
+                \begin{itemize}
+                    \item 異なるユーザーが異なる設定やパッケージを使用できるため、複数人での作業が効率的に行える
+                \end{itemize}
+
+            \item 安全性
+                \begin{itemize}
+                    \item システムワイドな設定を変更することなく、ユーザーが自由にパッケージを追加・更新できる
+                \end{itemize}
+
+            \item 整理整頓
+                \begin{itemize}
+                    \item パッケージを目的別に分類することで、管理がしやすくなる
+                \end{itemize}
+
+        \end{enumerate}
+
+\end{document}
