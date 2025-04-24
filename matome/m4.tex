@@ -1,0 +1,55 @@
+\documentclass[a4paper]{article}
+\usepackage{tcolorbox}
+\tcbuselibrary{breakable, skins, theorems}
+\usepackage{luatexja}            % LuaTeX用の日本語パッケージ
+\usepackage{fontspec}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{unicode-math}
+\setmainfont{IPAexMincho}       % 日本語フォントを指定
+\usepackage{xcolor}              % 色の定義用パッケージ
+\usepackage{listings}            % コード表示用パッケージ
+\newtheorem{theorem1}{定義}
+\newtheorem{theorem2}{定理}
+
+\begin{document}
+
+    \title{テイラー展開}
+    \author{松本　侑万}
+    \date{2025}
+    \maketitle
+
+    \begin{tcolorbox}[
+        colback=white,
+        colframe=green!35!black,
+        fonttitle=\bfseries,
+        breakable=true]
+        \begin{theorem1}
+            関数 $f$ を $C^\infty$ 級関数とする（すなわち無限回微分可能な関数）。$f$ が点 $a$ の近くで
+            \[
+            f(x) = \sum_{n=0}^\infty \frac{f^{(n)}(a)}{n!} (x - a)^n \\
+            = f(a) + f'(a)(x - a) + \frac{f''(a)}{2!}(x - a)^2 + \frac{f'''(a)}{3!}(x - a)^3 + \frac{f''''(a)}{4!}(x - a)^4 + \cdots
+            \]
+            とできるとき、これを $f$ の $a$ の周りのテイラー展開（テーラー展開; Taylor expansion）といい、この級数をテイラー級数 (Taylor series) という。
+
+            定義域全ての点 $a$ において、その十分近くでテイラー展開可能な関数を解析的 (analytic) であるという。
+        \end{theorem1}
+    \end{tcolorbox}
+    
+    \begin{tcolorbox}[
+        colback=white,
+        colframe=green!35!black,
+        fonttitle=\bfseries,
+        breakable=true]
+        \begin{theorem2}
+            関数 $f$ が点 $a$ の近くで $n$ 回微分可能であるとする。このとき、テイラー展開は次のように与えられる：
+            \[
+            f(x) = \sum_{k=0}^{n-1} \frac{f^{(k)}(a)}{k!} (x-a)^k + \frac{f^{(n)}(c)}{n!} (x-a)^n
+            \]
+            ここで、$f^{(k)}(a)$ は $a$ での $k$ 次の導関数を表し、最終項 $\frac{f^{(n)}(c)}{n!} (x-a)^n$ はラグランジュの剰余項 $R_n$ として知られ、$a < c < x$ である $c$ が存在する。展開は以下の形式で表される：
+            \[
+            f(x) = f(a) + f'(a)(x-a) + \frac{f''(a)}{2!}(x-a)^2 + \cdots + \frac{f^{(n)}(c)}{n!}(x-a)^n
+            \]
+        \end{theorem2}
+    \end{tcolorbox}
+\end{document}

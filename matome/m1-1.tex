@@ -1,0 +1,352 @@
+\documentclass[12pt]{bxjsarticle}
+%[[[ TeX setting
+%[[[ package
+\usepackage{fontspec}
+\usepackage{amsmath,amsthm}
+\usepackage{unicode-math}
+
+% フォント設定
+\usepackage{luatexja-fontspec}
+\setmainfont{TeX Gyre Termes} % 例: 欧文フォントを設定
+\setsansfont{TeX Gyre Heros} % 例: サンセリフフォントを設定
+\setmonofont{TeX Gyre Cursor} % 例: モノスペースフォントを設定
+
+\setmathfont{TeX Gyre Termes Math} % 数学フォントを設定
+
+% 和文フォント設定
+\setmainjfont{Harano Aji Mincho} % 例: 和文明朝体を設定
+\setsansjfont{Harano Aji Gothic} % 例: 和文ゴシック体を設定
+
+% パッケージrgtはlualatexでは不要かもしれない、または代替が必要
+% \usepackage{rgt}  % 必要に応じて対応するパッケージに変更または削除
+%]]]
+
+\begin{document}
+\newcommand{\Nendo}{2024年度} % 常に「2024年度」と出力するコマンド
+\newcommand{\GakusekiNum}[1]{学籍番号：#1}
+\newcommand{\Myouji}[1]{苗字：#1}
+\newcommand{\Namae}[1]{名前：#1}
+\newcommand{\ShidouMyouji}[1]{指導苗字：#1}
+\newcommand{\ShidouNamae}[1]{指導名前：#1}
+\newcommand{\Shokukai}[1]{職階：#1}
+\GakusekiNum{Y210005} % 学籍番号を出力
+\Myouji{石川}          % 自分の苗字
+\Namae{拓海}          % 自分の名前
+\ShidouMyouji{藤原}   % 指導教員の苗字
+\ShidouNamae{和将}    % 指導教員の名前
+\Shokukai{准教授}
+
+\part{常微分方程式の初期値問題の解の一意性}
+
+\title{常微分方程式の初期値問題の解の一意性}
+\begin{abstract}
+\label{sec:intro}
+大学の4年間で大学の数学を勉強してきた中で,
+微分方程式の基礎的な解法に取り組んできたが,
+理論を深く理解には至らなかった.
+大学3年生で研究室配属になってから解析学の基礎的な知識を学び,
+微分方程式の理解がより深くなり,
+常微分方程式の初期値問題における解の一意性に興味を持つに至った.
+本研究では, 常微分方程式の初期値問題の解の構成と解の一意性を証明を行う.
+解を構成する方法はいくつか存在するが本論文は完備性を利用した大域解の一意性を示す.
+本論文の構成としては,
+第\ref{sec:積分作用素}章と
+第\ref{sec:関数列}章で理論的な準備を行い,
+第\ref{sec:微分方程式の初期値問題}章で解の存在と一意性を示す.
+今回考える常微分方程式の初期値問題は次の形式で与えられる：
+	\[
+	\frac{d}{dx}Y(x) = f(x, Y(x)),
+	\quad Y(x_{0}) = Y_{0}.
+	\]
+
+上記微分方程式に対応した積分方程式から考える.
+
+第\ref{sec:積分作用素}章では,
+Riemann積分の基本的性質についてまとめる.
+特に, Riemann積分の線型性と単調性について述べる.
+ここから,
+ノルム$\|f\| = \sup_{x \in [0,1]} |f(x)|$を付加した,
+連続関数の空間$C([0,1];\mathbb{R})$において,
+積分作用素が有界線形作用素であることを示す
+
+第\ref{sec:関数列}章では,
+上記$C([0,1];\mathbb{R})$が完備である事を示す.
+完備性は,積分方程式の解を構成するための重要な性質である事は次章で扱う.
+この章では,
+$C([0,1];\mathbb{R})$が上記のノルムから誘導された距離に対して完備であることを確認する.
+加えて,
+関数列の極限と積分の順序交換が可能であるための十分条件を求め,
+$[0,1]$上の積分作用素が$C([0,1];\mathbb{R})$上の有界線形作用素であることを確認する.
+この条件は, 逐次近似法を用いた積分方程式の解の構成において重要な役割を果たす.
+
+第\ref{sec:微分方程式の初期値問題}章では,
+上記問題の解の一意存在性を,
+対応する積分方程式を介して検討する.
+解の構成は,
+Picardの逐次近似法を用いて行う.
+具体的には,
+連続関数の空間の完備性と積分作用素の有界性を利用して,
+$C([0,1];\mathbb{R})$上の近似解の基本列を構成する事で,
+解作用素の不動点として解が存在することを示す.
+一意性の証明においては,
+初期値を共有する２つの解の差をGronwallの不等式を用いて評価する.
+\end{abstract}
+\maketitle
+\Mokuji
+\section{はじめに}
+本研究では, 常微分方程式の初期値問題の解の一意性を示すことが目的とする.研究室配属になってから解析学の基礎的な知識を学び, 微分方程式の理解がより深くなり, 常微分方程式の初期値問題における解の一意性に興味を持つに至った. 本論文では$C([0,1],\mathbb{R})$の完備性と積分作用素の性質をもとに解を構成し.gronwallの不等式を用いて評価を行う.まず積分の基本的性質を整理し, 積分作用素を対象に, 連続関数や積分可能関数の集合を設定し, その作用が線形かつ有界である条件を具体的に解析する.
+これをすることによって求積法によって微分方程式の解の一意性について考えることができる.さらに, 一階の微分方程式の解の存在と一意性を, 積分方程式から証明する.
+リプシッツ条件,関数列を用いて解を近似し, その収束性と極限関数が解となることを示すことで, 解の存在を証明を行う.
+
+
+
+\section{積分作用素}
+\label{sec:積分作用素}
+以下に本論文に必要な定理にまとめる
+\begin{Lemma}[リーマン積分]
+分割を$\Delta:a=x_{0}\leq x_{1} \leq x_{2} \leq x_{3} \cdot \cdot \cdot  \leq x_{n}=b$と定義する.
+\[d(\Delta)=\max\{x_{k}-x_{k-1}|k=1,2,3,\cdot \cdot\cdot n \}\]
+    $\displaystyle \lim_{\substack{d(\Delta) \to 0}} \sum_{k=1}^{n} f(\xi) \ (x_k - x_{k-1})$の極限が存在するとき,リーマン積分可能と定義する.その極限を$\displaystyle \int_{a}^{b} f(x) dx$とする.
+\end{Lemma}
+\begin{Lemma}
+(1)$f$は区間$I=[0,1]$で積分可能である.\\
+(2)任意の$\varepsilon>0$に対して$S_{\Delta}-s_{\Delta}<\varepsilon$をみたす$I$の分割$\Delta $が存在する.\\
+(3)任意の$\varepsilon>0$に対してある$\delta$が存在し,$d(\delta)<\delta$が存在する$ S_{\Delta}-s_{\Delta}<\varepsilon$が成立する.\\
+(4)任意の$\varepsilon>0$に対してある$\delta>0$が存在し,$d(\delta)<\delta$をみたすすべての分割$\Delta$ に対して点 $\xi_{k}$の選び方と無関係に
+$|S_{\Delta,\xi}-V|<\varepsilon$が成立するような定数$V$が存在する
+\end{Lemma}
+\begin{Lemma}
+閉区間で連続な関数は積分可能である
+\end{Lemma}
+\begin{Lemma}[定積分の基本的性質]
+\begin{align}
+\displaystyle \int_{a}^{b} (f(t) + g(t)) \, dt &= \displaystyle \int_{a}^{b} f(t) \, dt + \displaystyle \int_{a}^{b} g(t) \, dt, \\
+\displaystyle \int_{a}^{b} c f(t) \, dt &= c \displaystyle \int_{a}^{b} f(t) \, dt, \\
+\displaystyle \left| \int_{a}^{b} f(t) \, dt \right| &\leq \displaystyle \int_{a}^{b} |f(t)| \, dt.
+\end{align}
+
+\end{Lemma}
+
+
+
+\begin{Definition}[ノルム空間]
+
+線形空間 $X$ において実数値関数 $\|\cdot\|: X \to [0, \infty)$ が次の4つの条件を満たすとき, $\|\cdot\|$ を $X$ 上のノルムといい, $X$ を \textbf{ノルム空間}（normed space）と呼ぶ.
+
+    \[
+    ||\cdot|| : X \to \mathbb{R}\\ \quad f \mapsto ||f|| 
+    \]
+    \[f,g \in X,k \in \mathbb{R}\]
+    \begin{align}
+    1. \quad & ||f|| \geq 0, \\
+    2. \quad & ||f|| = 0 \Leftrightarrow f = 0, \\
+    3. \quad & ||kf|| = |k| \, ||f||, \\
+    4. \quad & ||f+g|| \leq ||f|| + ||g||.
+    \end{align}
+
+\end{Definition}
+\begin{Theorem}
+    積分作用素を $T$とし, $X$ を実数値可積分関数全体の集合を含むbanach空間とする.
+この時, $T$が$X$から$X$への有界線形作用素となる.
+\end{Theorem}
+\[X=C([0,1],\mathbb{R}),X=C([0,1],\mathbb{R})\]
+\[X \ni x \to \int_0^x f(t) \, dt \in X \]
+
+有界性を示す.
+
+\[\displaystyle \left|\int_0^x f(t) \, dt \right| \leq \displaystyle \int_0^x |f(t)| \, dtn \leq x||f|| \leq ||f||\]
+\[\displaystyle \left|\int_0^x f(t) \, dt \right| \leq  ||f|| \]
+
+\[\displaystyle 
+\left\| \int_0^x f(t) \, dt \right\|  \leq ||f||
+\]
+ 
+
+有界性が示された.
+
+積分の線形性により線形性が従う.
+
+以上より有界線形作用素であることがわかる
+
+\section{関数列}
+\label{sec:関数列}
+\begin{Definition}[一様収束の定義]
+$A \subset \mathbb{R}$
+関数列 \(\{f_n(x)\}_{n=1}^\infty\) がA上で一様収束するとは, 任意の \(\varepsilon > 0\) に対して, ある自然数 \(N\) が存在して, すべての \(x \in A\) に対して
+$|fₙ(x) - f(x)| < \varepsilon$ が成り立つとき, 一様収束する.
+
+一様収束の定義は、 以下のように書くこともできる.
+\[
+\lim_{n \to \infty} \sup_{x \in E} \|fₙ(x) - f(x)\| = 0
+\]
+\end{Definition}
+\begin{Theorem}[ワイエルシュトラスのM判定法]
+任意の$x \in E$と$n \in \mathbb{N}$ に対して
+\[\left|Y_{n}(x)\right| \leq M_{n}\]
+が成立する.実級数$\displaystyle\sum_{n=1}^\infty M_{n} $が収束するとき, 関数項級数$\displaystyle\sum_{n=1}^\infty Y_{n}(x)$は$E$で一様収束する.
+\end{Theorem}
+
+\begin{proof}
+    
+仮定より\\
+$S_{m}$はコーシー列となる.
+
+よって任意の正の$\varepsilon >0$に対してある自然数$N$が存在して,$m,n \geq N$を満たす$m,n$に対して$\left|S_{m}-S_{n}\right|= \displaystyle\sum_{k=m+1}^{n}\ M_{n} \leq \varepsilon $が成立する.
+
+よって
+\[\left|\displaystyle\sum_{n=1}^m Y_{n}(x)\right| \leq \sum_{n=1}^{m} \left|Y_{n}(x)\right| < \varepsilon\]
+コーシーの判定法より$\displaystyle\sum_{k=1}^\infty Y_{n}(x)$は収束する.\\
+$\displaystyle\sum_{n=1}^m Y_{n}(x)$における第$n$部分和を$Z_{n}(x)$,その極限を$Z(x)$とする\\
+\[\left|Z_{n}(x)-Z(x)\right|=\left|\displaystyle\sum_{k=n+1}^\infty Y_{k}(x)\right| \leq \displaystyle\sum_{n=1}^\infty M_{n} \leq \varepsilon\]
+となり, $N$は$x$に関わらずとることができるので,一様収束する.
+\end{proof}
+\begin{Lemma}
+連続関数列の一様収束極限は連続である
+\end{Lemma}
+\begin{proof}
+$E\subset \mathbb{R}$とする.$E$上の任意の点を$a$とする\\
+まず, 一様収束の定義より$\varepsilon$に依存して$a$に依存しない$N$が存在します
+任意の $\varepsilon > 0$ に対して, ある自然数 $N$ が存在し, 任意の $x \in E$ , $n \geq N$ に対して $\left| f_n(x) - f(x) \right| < \frac{\varepsilon}{3}$ が成り立つ.
+
+一方, $f_N$ は $E$ で連続であるため, $\varepsilon$, $a$, および $N$ に依存する $\delta$ が存在し, 次が成り立つ：
+
+\[
+\left| x - a \right| < \delta \Rightarrow \left| f_N(x) - f_N(a) \right| < \frac{\varepsilon}{3}
+\]
+
+以上のことから, 次のように評価できる：
+
+\[
+\left| x - a \right| < \delta \Rightarrow \left| f(x) - f(a) \right| \leq \left| f(x) - f_N(x) \right| + \left| f_N(x) - f_N(a) \right| + \left| f_N(a) - f(a) \right|
+\]
+\[
+< \frac{\varepsilon}{3} + \frac{\varepsilon}{3} + \frac{\varepsilon}{3} = \varepsilon
+\]
+
+したがって, $f(x)$ の連続性が証明された.
+\end{proof}
+\begin{Lemma}
+$\lim_{n \to \infty} f_n = f$
+\[\lim_{n \to \infty} \displaystyle \int_a^b f_n(x) \, dx = \displaystyle \int_a^b f(x) \, dx \]
+\end{Lemma}
+次の不等式を考える：
+\[
+\left| \int_a^b f_n(x) \, dx - \int_a^b f(x) \, dx \right| \leq (b-a) \sup_{x \in [a, b]} |f_n(x) - f(x)|.
+\]
+\(\sup_{x \in [a, b]} |f_n(x) - f(x)| \to 0 \quad (n \to \infty)\) であるため,
+\[
+\lim_{n \to \infty} \int_a^b f_n(x) \, dx = \int_a^b f(x) \, dx.
+\]
+
+\section{微分方程式の初期値問題}
+\label{sec:微分方程式の初期値問題}
+   以下の常微分方程式の解の一意性について考察する.
+       次に$x_{0}$を含む$I$に含まれる任意の有界閉区間$J$において$Y_{n}(x)$が$(3.1)$の解に一様収束することを示す.
+       \[Y(x)=Y_{0}+\displaystyle \int_{x_{0}}^{x} f(t,Y(t)) dt\]
+   \begin{align}
+\frac{d}{dx}Y(x) = F(x, Y(x)), \quad Y(x_{0}) = Y_{0},
+   \end{align}
+   両辺を積分$(x_{0},x)$で積分する.
+   \[Y(x)=Y_{0}+\displaystyle \int_{x_{0}}^{x} f(t,Y(t)) dt\]
+\begin{Definition}[リプッシツ条件]
+$I \subset \mathbb{R}^{1}$
+$f(x,y(x)): I \times \mathbb{R} \to \mathbb{R}$\\
+$f(x,Y(x))$がリプッシツ条件を満たすとは以下のこと不等式が成立することを指す.
+\[
+|f(x, Y(x) - f(x, Z(x))| \leq L |Y(x) - Z(x)| \quad (Y,Z \in \mathbb{R}) 
+\]
+$f(x,Y(x))$は$\Omega$においてリプッシツ連続であるという.
+\end{Definition}
+\begin{Lemma}[グロンウォールの不等式]
+    $h(x),g(x)$を区間$I=(x_{0},T)(x_{0}<T\leq +\infty)$上の関数とし,$g(x)\cdot h(x),g(x)$は$I$で可積分かつ$g$は非負値関数とする.この時次の関係がある.
+\[
+h(x) \leq a + \int_{x_0}^x g(\xi) h(\xi) \, d\xi \implies 
+h(x) \leq a \exp\left(\int_{x_0}^x g(\xi) \, d\xi\right)
+\]
+\end{Lemma}
+\begin{proof}
+    $H(x)=a+\displaystyle\int_{x_0}^x g(\xi) h(\xi)$とする\\
+    よって$h(x)\leq H(x)$
+    $H'(x)=g(x)h(x)$となる.
+    さらに,両辺$g(x)$をかけると$g(x)h(x)\leq g(x)H(x)$となり, この両辺に$\exp\left(\int_{x_0}^x g(\xi) \, d\xi\right)$をかけて整理すると
+    \[\left(e^{\int_{x_0}^x g(\xi) \, d\xi}H(x)\right)'=H(x)'e^{\int_{x_0}^x g(\xi) \, d\xi}-g(x)H(x)e^{\int_{x_0}^x g(\xi) \, d\xi} \leq 0\]
+    が得られる.従って,$e^{\int_{x_0}^x g(\xi) \, d\xi}H(x) \leq H(x_{0})=a$が成立する.あとは,$e^{\int_{x_0}^x g(\xi) \, d\xi}$を両辺にかける.$h(x),H(x)$の大小関係に注目すると
+    \[H(x) \leq ae^{\int_{x_{0}}^{x} g(\xi) d\xi} \implies h(x) \leq ae^{\int_{x_{0}}^{x} g(\xi) d\xi}\]
+\end{proof}
+\begin{Theorem}
+        
+$F(x, Y):$  $\mathbb{R}\times I \to \mathbb{R}$ \\
+$F(x,Y(x))$リプシッツ条件を満たす 連続関数とする.
+このとき, ある $x_0 \in I$ であれば, (3.1)の初期値問題を$x \in I$において満足する一意的な解$Y(x)\in C(I)$が存在する.
+\end{Theorem}
+\begin{proof}
+\[\frac{d}{dx}Y(x) = f(x, Y(x)), \quad Y(x_{0}) = Y_{0},\]
+これを両辺$(x_{0},x)$で積分する.
+ \[Y(x)=Y_{0}+\displaystyle \int_{x_{0}}^{x} f(t,Y(t)) dt\]
+この積分方程式を満たす積分方程式を満たす連続な解の存在を考える.
+       次に$x_{0}$を含む$I$に含まれる任意の有界閉区間$J$において$Y_{n}(x)$が$(3.1)$の解に一様収束することを示す.
+       \[Y_{n}(x)=Y_{0}+\displaystyle \int_{x_{0}}^{x} f(t,Y_{n-1}(t)) dt\]
+       この関数列の連続関数であることは数学的帰納法を用いて証明を完了できる.続いて以下の方程式が成立することを示す.
+\[
+| Y_{n}(x) - Y_{n-1}(x) | \leq M L^{n-1} \frac{|x - x_0|^{n}}{n!}, \quad x \in J,
+\]
+\[
+M = \sup_{x \in J} \|F(x, Y_0)\|, \quad n = 1, 2, 3, 4, \dots.
+\]
+とする.
+
+    数学的帰納法から考える\\
+    $n=1$の場合を考える
+    \[\left| Y_{1}(x)-Y_{0}(x) \right| =\left|\displaystyle \int_{x_{0}}^{x}  f(\xi,Y_{0}(\xi)) d\xi \right|_{\mathbb{R}^{m}}\leq M|x-x_{0}| \]
+となるから成立
+$n=k$に対して上記不等式が成立すると仮定する.
+
+$n=k+1$において成立すれば良い.
+\[\left| Y_{k+1}(x)-Y_{k}(x) \right| =  \left|\displaystyle \int_{x_{0}}^{x}  f(\xi,Y_{k}(\xi)) d\xi -\displaystyle \int_{x_{0}}^{x}  f(\xi,Y_{k-1}(\xi)) d\xi\right| \]
+\[\leq \displaystyle  \int_{x_{0}}^{x}  \left|f(\xi,Y_{k}(\xi))-f(\xi,Y_{k-1})\right| d\xi \]\
+\[\leq \displaystyle  \int_{x_{0}}^{x}  L\left|Y_{k}(\xi))-Y_{k-1}(\xi))\right| d\xi \leq \displaystyle  \int_{x_{0}}^{x}ML^{k} \frac{\left|\xi - x_0\right|^{k}}{k!} d\xi \leq ML^{k-1}\frac{\left|x - x_0\right|^{k+1}}{(k+1)!}\]
+
+
+\[ \displaystyle\sum_{n=1}^{\infty}[Y_{n}(x)-Y_{n-1}(x)] \leq  \displaystyle\sum_{n=1}^{\infty}ML^{k-1}\frac{\left|x - x_0\right|^{k+1}}{k!}\]
+\[\leq \displaystyle\sum_{n=1}^{\infty}ML^{k-1}\frac{\left|J\right|^{k}}{k!}=M \cdot \frac{e^{|J|}-1}{L}\]
+
+ワイエルシュトラスの$M$判定法により,
+
+$Y_{n}=Y_{0}+\displaystyle\sum_{k=1}^{n} [Y_{k}(x)-Y_{k-1}(x)]$は$Y(x)=Y_{0}+\displaystyle\sum_{n=1}^{\infty} [Y_{n}(x)-Y_{n-1}(x)]$に一様収束する.上で示した, 連続関数列の一様収束極限関数は連続であることより,$Y(x)$は$J$で連続である.\\
+第三章で述べた積分と極限との交換の十分条件より
+    \[\lim_{n \to \infty} \displaystyle \int_{x_{0}}^{x} f(\xi,Y_{n}(\xi)) \, d\xi = \displaystyle \int_{x_{0}}^{x} f(\xi,Y(\xi)) \, d\xi \]
+以上の事実によって,$Y(x)$が$I$における解であることが証明された.これにより,解作用素の不動点として解が存在することを示される.
+\[
+Y(x) = Y_{0} + \displaystyle \int_{0}^{x} f(\xi, Y(\xi)) \, d\xi
+\]
+\[
+Z(x) = Y_{0} + \displaystyle \int_{0}^{x} f(\xi, Z(\xi)) \, d\xi
+\]
+
+この二つの式の差を考えると,
+\[
+|Y(x) - Z(x)|
+\]
+\[
+= \left| \displaystyle \int_{x_{0}}^{x} \big( f(\xi, Y(\xi)) - f(\xi, Z(\xi)) \big) \, d\xi \right|
+\]
+\[
+\leq \displaystyle \int_{x_{0}}^{x} L |Y(\xi) - Z(\xi)| \, d\xi,
+\]
+
+
+上記で示したGronwallの不等式を利用する.$a=0,g(\xi)\equiv L$を適用させる.
+\[\left|Y-Z \right|\leq 0+\displaystyle \int_{x_{0}}^{x} L |Y(\xi) - Z(\xi)| \, d\xi \leq 0\cdot \displaystyle \int_{x_{0}}^{x} L |Y(\xi) - Z(\xi)| \, d\xi =0\]
+よっての常微分方程式の解の一意性が証明された.
+\end{proof}
+
+\section{まとめ}
+\label{sec:まとめ}
+今回は逐次近似法で証明を行った.今回扱う微分方程式では求積法による証明をメインで考え,積分の定義から積分作用素が有界線形作用素になることの議論を行い,解の一意性を示した.
+
+参考文献
+
+理工系の微分積分1 2 共著$\quad$鈴木武$\quad$ 柴田良弘$\quad$山田義雄$\quad$田中和永
+
+常微分方程式概論$\quad$大谷光春  $\quad$微分方程式 吉沢太郎
+\end{document}

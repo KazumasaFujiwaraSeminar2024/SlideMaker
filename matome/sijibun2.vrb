@@ -1,0 +1,26 @@
+\frametitle{概要}
+\begin{tcolorbox}[enhanced, colback=white, colframe=black, fontupper=\scriptsize, breakable, sharp corners=south, boxrule=0.5mm, arc=2mm]
+
+常微分方程式の初期値問題における解の一意性は、数学的理論の精密化と応用の両面において重要である。解析学の基礎をふまえ、本研究ではこの問題に対し厳密な理論的アプローチを行った。
+
+\medskip
+
+本研究の目的は、次の初期値問題の解の一意存在性を証明することである：
+\[
+\frac{d}{dx}Y(x) = f(x, Y(x)), \quad Y(a) = Y_0.
+\]
+
+\medskip
+
+本研究では、まず関数空間 $C(I;\mathbb{R})$ における積分作用素の連続性を示し、その上で空間の完備性を確認した。これにより、Picardの逐次近似法による解の構成が可能となる。
+
+\medskip
+
+その結果、$f$ が $I \times \mathbb{R}$ 上でLipschitz連続であるならば、任意の初期値 $Y_0$ に対して、初期値問題は $C(I,\mathbb{R})$ 上で一意な解を持つことを示した。
+
+\medskip
+
+この証明は、積分作用素の性質と空間の完備性を結びつけることで、常微分方程式の大域解に対しても一意性が保証されるという意義を持つ。
+
+\end{tcolorbox}
+

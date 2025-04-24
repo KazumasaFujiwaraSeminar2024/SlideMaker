@@ -1,0 +1,63 @@
+\documentclass[a4paper]{article}
+\usepackage{luatexja}            % LuaTeX用の日本語パッケージ
+\usepackage{fontspec}
+\setmainfont{IPAexMincho}       % 日本語フォントを指定
+\usepackage{xcolor}              % 色の定義用パッケージ
+\usepackage{listings}            % コード表示用パッケージ
+\usepackage{bardiag}
+\usepackage{pstricks}
+\usepackage{graphicx}
+\usepackage{amsmath}
+
+
+\begin{document}
+
+    \title{指示文 まとめ}
+    \maketitle
+
+        \begin{enumerate}
+            \item ＜指示文＞\\
+            タイトル、学籍番号、名前、指導教員、日付をPDFから読み込んで1枚目のスライドをbeamerで出力する\\
+            ソースコードを以下の条件にしたがって作成してください\\
+            ＃条件\\
+            ・使用するプログラミング言語は「lualatex」\\
+
+            ＜以下が出力結果になります＞\\
+            \begin{figure}[h]
+                \centering
+                \includegraphics[scale=0.7]{sijibun.pdf}
+                \caption{1枚目}
+            \end{figure}
+
+            \newpage
+
+            \item ＜指示文＞\\
+            あなたはLaTeXエンジニアとして、与えられたLaTeX形式の論文ファイルを読み込み、その内容を解析して、LuaLaTeXでコンパイル可能なbeamerスライドのコードを作成してください。\\
+            入力される論文はプレーンなLaTeXソースコードであり、これをもとに要約を行います。\\
+            出力するスライドは1枚とし、スライドのタイトルは「概要」としてください。\\
+            本文には「背景」「目的」「方法」「結果」の4つのセクションを含め、それぞれ文章形式で記述してください。\\
+            各セクションは200〜300文字以内とし、論文の段落から主張や結論を中心に内容を要約してください。\\
+            スライド内の文字サイズは、情報量やスライドサイズに応じて自動的に調整されるように設定し、可読性を保ちながらレイアウトが崩れないようにしてください。\\
+            論文に数式が含まれている場合は、それをLaTeX形式でインラインまたは独立表示として適切に表現してください。\\
+            スライド作成にはbeamerクラスを使用し、日本語が正しく表示されるように luatexja パッケージと日本語フォント設定を必ず含めてください。\\
+            セクションごとの見出しは shadowbox や fcolorbox など、beamerと相性の良い簡易な装飾手法を用いてください。\\
+            tcolorbox や colorbox はエラーの原因となるため使用しないでください。\\
+            スライドのタイトルと各セクション見出しの背景色は統一し、ランダムに選ばれた1色を使用してください。\\
+            文字の可読性を確保するため、背景色と文字色のコントラストには配慮してください。\\
+            ⚠ 最重要事項：\\
+            hyperref パッケージを使用する場合、絶対に dvipdfmx オプションを指定しないでください。\\
+            このオプションはLuaLaTeXでは非対応であり、エラーの原因になります。\\
+            hyperrefは\texttt{\textbackslash usepackage{hyperref}}のように、オプションなしで安全に読み込むようにしてください。\\
+            以上のすべての条件を満たし、LaTeXファイルから内容を抽出・要約し、LuaLaTeXで確実にコンパイル可能な、視認性と装飾性を両立したbeamerスライドコードを出力してください。\\
+
+            \newpage
+            
+            ＜以下が出力結果になります＞\\
+            \begin{figure}[h]
+                \centering
+                \includegraphics[scale=0.7]{sijibun2.pdf}
+                \caption{2枚目}
+            \end{figure}
+
+        \end{enumerate}
+\end{document}

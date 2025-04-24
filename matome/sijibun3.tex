@@ -1,0 +1,46 @@
+\documentclass[dvipdfmx]{beamer} % DVIドライバは使わないので dvipdfmxを外すなら問題なし
+\usepackage{luatexja}
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{tikz}
+\usepackage{fontspec}
+\setmainfont{IPAexMincho} % 日本語対応のフォント
+
+\usetheme{Madrid}
+\usecolortheme{default}
+
+\title{文書間類似度とベクトル距離の関係に関する検討}
+\author{〇〇大学 〇〇学部 〇〇 〇〇}
+\date{\today}
+
+\begin{document}
+
+\begin{frame}[fragile]{研究概要}
+\small
+\begin{block}{背景}
+情報検索における類似文書の判定は、検索精度や推薦精度を大きく左右する重要な課題である。
+\end{block}
+
+\vspace{0.4em}
+\begin{block}{目的}
+文書ベクトルの距離と文書間類似度の関係を調査し、より精度の高い類似度推定手法を提案する。
+\end{block}
+
+\vspace{0.4em}
+\begin{block}{方法}
+TF-IDFやBERTによる文書ベクトルを用い、コサイン類似度やユークリッド距離との関係を分析した。また、クラスタリングによる分布可視化も行った。
+\end{block}
+
+\vspace{0.4em}
+\begin{block}{結果}
+距離尺度と類似度の間に非線形な相関が見られ、BERTベースの手法が高い再現率を示した。
+\end{block}
+
+\vspace{0.4em}
+\begin{block}{結論・意義}
+本研究は距離と類似度の関係性の再評価を促し、類似文書検索における性能改善の一助となることを示した。
+\end{block}
+\end{frame}
+
+\end{document}

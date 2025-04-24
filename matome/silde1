@@ -1,0 +1,58 @@
+\documentclass{article}
+\usepackage{luatexja}            % LuaTeX用の日本語パッケージ
+\usepackage{luatexja-fontspec}   % フォント指定用パッケージ
+\setmainjfont{IPAexMincho}       % 日本語フォントを指定
+\usepackage{xcolor}              % 色の定義用パッケージ
+\usepackage{listings}            % コード表示用パッケージ
+\usepackage{graphicx}
+
+\lstset{
+    basicstyle=\ttfamily,
+    frame=single,
+    breaklines=true,
+    numbers=left,
+    numberstyle=\tiny,
+    backgroundcolor=\color{gray!10},
+    rulesepcolor=\color{gray!10}
+}
+
+\lstdefinelanguage{json}{
+    basicstyle=\normalsize\ttfamily,
+    numbers=left,
+    numberstyle=\scriptsize,
+    stepnumber=1,
+    numbersep=8pt,
+    showstringspaces=false,
+    breaklines=true,
+    frame=lines,
+    backgroundcolor=\color{gray!10},
+    stringstyle=\color{red},
+    keywordstyle=\color{blue}\bfseries,
+    keywords={true, false, null}
+}
+
+\begin{document}
+
+\part{インフルエンザが”最も早い流行”...熱が出ない”隠れインフル”に要注意！感染症３つ同時流行で”トリプルデミック”も}
+
+厳しい寒暖差で体調不良を起こしやすい中、２０２４年１１月１２日、厚生労働省はインフルエンザが全国的な竜後期に入ったと発表。
+
+\begin{figure}[htbp]
+\includegraphics[width=10cm]{image/スクリーンショット　2025-01-09 162524.png}
+\end{figure}
+
+１医療機関あたりの患者数は、流行の目安である「1」を超えた「１．０４」人となりました。
+
+東京・大田区にある「竹内内科小児科医院」には、１日約３０人がせきや熱の症状を訴え、発熱外来を訪れました。
+
+そのうち、約３割は「マイコプラズマ肺炎」と診断されていますが、１１月に入ってからは「インフルエンザ」診断される人も増えているといいます。
+
+”隠れインフル”かどうか気がつくための”サイン”として、以下のようなものがあります。
+
+\begin{enumerate}
+\item 倦怠感、関節痛、せき、のどの痛み、鼻水
+\item つらくて食欲がない
+\item 息苦しく寝られない
+\item 尿が出ない
+
+熱はなくとも、これらの症状はでたときは、インフルエンザを疑って早めに病院を受信してください。
