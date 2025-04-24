@@ -1,0 +1,32 @@
+\documentclass{beamer}
+\usepackage{luatexja}
+\usepackage{amsmath}
+\usepackage{hyperref}
+
+\setbeamercolor{section in head/foot}{bg=cyan, fg=white}
+\setbeamercolor{item}{fg=black}
+\setbeamercolor{frametitle}{bg=cyan, fg=white}
+
+\begin{document}
+
+\begin{frame}
+\frametitle{概要}
+
+\textbf{背景:}\\
+常微分方程式は、物理学や工学において広範な応用がある。特に、初期値問題は解の一意性に関する重要な理論を含み、微分方程式を理解する上で基盤となる研究分野である。しかし、これまでの学びでは理論的な理解が不足していた。
+
+\vspace{0.5em}
+\textbf{目的:}\\
+本研究は常微分方程式の初期値問題における解の一意性を証明することを目的とする。具体的には、Picardの逐次近似法を用いて、解の構成とその一意性を考察し、その成果を示す。
+
+\vspace{0.5em}
+\textbf{方法:}\\
+Riemann積分の性質を整理し、連続関数の完備性に基づく理論を構築する。初期値を持つ微分方程式を定式化し、Gronwallの不等式を利用して二つの解の差を評価することで、解の存在と一意性を示す。
+
+\vspace{0.5em}
+\textbf{結果:}\\
+調査の結果、与えられた条件下では解の一意性が保証されることが分かった。具体的には、任意の初期値に対し、解は$C(I, \mathbb{R})$空間において一意的に存在することが証明され、理論的基盤が強化された。
+
+\end{frame}
+
+\end{document} 
