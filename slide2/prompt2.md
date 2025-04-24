@@ -33,7 +33,16 @@
 - hyperrefパッケージ使用時の注意：
   - dvipdfmxオプションは絶対に指定しない
   - LuaLaTeXでは非対応でエラーの原因となる
-  - `\usepackage{hyperref}` のようにオプションなしで使用
+  - 以下のようにオプションなしで使用すること：
+    ```latex
+    \usepackage{hyperref}  % 正しい使い方
+    ```
+  - 以下のような使い方は避けること：
+    ```latex
+    \usepackage[dvipdfmx]{hyperref}  % 誤った使い方
+    \usepackage[pdftex]{hyperref}    % 誤った使い方
+    \usepackage[options]{hyperref}   % 誤った使い方
+    ```
 
 ## 期待される出力
 LuaLaTeXで確実にコンパイル可能な、視認性と装飾性を両立したbeamerスライドコード 
