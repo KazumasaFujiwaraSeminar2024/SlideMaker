@@ -1,48 +1,37 @@
 # LaTeXスライド生成プロンプト
 
 ## 基本要件
-- LaTeX形式の論文ファイルを読み込み、LuaLaTeXでコンパイル可能なbeamerスライドを作成
-- 入力は通常のLaTeXソースコード
-- 出力は1枚のスライド（タイトル：「概要」）
+* LaTeX形式の論文ファイルを読み込み、LuaLaTeXでコンパイル可能なbeamerスライドを作成
+* 入力は通常のLaTeXソースコード
+* 出力は1枚のスライド（タイトル：「概要」）
 
 ## スライド構成
-- 4つのセクション：「背景」「目的」「方法」「結果」
-- 各セクションは箇条書き形式で記述
-- 論文の主張や結論を中心に要約
+* 4つのセクション：「背景」「目的」「主定理」「方法」
+* 各セクションは箇条書き形式で記述
+  * 可能な限り少ない項目数
+* 論文の主張や結論を中心に要約
+* 目的と主定理の接続を確認して生成
 
-## 技術要件
-1. **文字サイズ**
-   - 情報量とスライドサイズに応じて自動調整
-   - レイアウトを崩さず可読性を維持
+## preamble
+preambleは必ずこれを使用
 
-2. **数式対応**
-   - 論文中の数式を適切に表現
+```latex
+% !TEX program = lualatex
+\documentclass[aspectratio=169]{beamer}
+\usepackage{luatexja}
+\usepackage{amsmath,amssymb}
+\usepackage{graphicx}
+\usepackage{hyperref}
+\usepackage{fancybox}
 
-3. **必須パッケージと設定**
-   - beamerクラスを使用
-   - luatexjaパッケージ
-   - 日本語フォント設定
+% スライドのスタイル設定
+\setbeamertemplate{navigation symbols}{}
+\setbeamertemplate{footline}[frame number]
+\setbeamertemplate{headline}{}
 
-4. **デザイン要件**
-   - セクション見出しは shadowbox や fcolorbox を使用
-   - tcolorbox や colorbox は使用禁止
-   - タイトルとセクション見出しの背景色を統一（ランダムな1色）
-   - 背景色と文字色のコントラストに配慮
-
-## ⚠️ 最重要事項
-- hyperrefパッケージ使用時の注意：
-  - dvipdfmxオプションは絶対に指定しない
-  - LuaLaTeXでは非対応でエラーの原因となる
-  - 以下のようにオプションなしで使用すること：
-    ```latex
-    \usepackage{hyperref}  % 正しい使い方
-    ```
-  - 以下のような使い方は避けること：
-    ```latex
-    \usepackage[dvipdfmx]{hyperref}  % 誤った使い方
-    \usepackage[pdftex]{hyperref}    % 誤った使い方
-    \usepackage[options]{hyperref}   % 誤った使い方
-    ```
-
-## 期待される出力
-LuaLaTeXで確実にコンパイル可能な、視認性と装飾性を両立したbeamerスライドコード 
+% タイトルページの設定
+\title{}
+\author{}
+\institute{}
+\date{\today}
+```
