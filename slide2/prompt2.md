@@ -45,8 +45,8 @@ preambleは必ずこれを使用
 % 見出しの装飾設定
 \newcommand{\decoratedsection}[1]{%
   \begin{tcolorbox}[title=#1,
-                    colback=forestgreen!10!white,
-                    colbacktitle=forestgreen!40!white,
+                    colback=green!10!white,
+                    colbacktitle=green!40!white,
                     coltitle=black]
     \color{black}\Large\bfseries #1
   \end{tcolorbox}
