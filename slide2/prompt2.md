@@ -37,11 +37,11 @@ preambleは必ずこれを使用
 \setbeamertemplate{headline}{}
 
 % 見出しのスタイル設定
-\setbeamertemplate{tcolorbox}[title=example]
+\setbeamertemplate{tcolorbox}
 
 % 見出しの装飾設定
 \newcommand{\decoratedsection}[2]{%
-  \begin{tcolorbox}[title=#1,
+  \begin{tcolorbox}[
                     colback=green!10!white,
                     colbacktitle=green!40!white,
                     coltitle=black,
