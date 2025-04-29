@@ -7,6 +7,9 @@
 
 ## スライド構成
 * 4つのセクション：「背景」「目的」「主定理」「方法」
+  * 以下の見出しの装飾とスタイルの設定にある「example」とは
+    「背景」「目的」「主定理」「方法」を指す
+
 * 各セクションは箇条書き形式で記述
   * 可能な限り少ない項目数
 * 論文の主張や結論を中心に要約
@@ -37,31 +40,16 @@ preambleは必ずこれを使用
 \setbeamertemplate{headline}{}
 
 % 見出しのスタイル設定
-\setbeamertemplate{section in toc}[sections numbered]
-\setbeamertemplate{subsection in toc}[subsections numbered]
-\setbeamercolor{section in toc}{fg=structure}
-\setbeamercolor{subsection in toc}{fg=structure}
+\setbeamertemplate{tcolorbox}[title=example]
 
 % 見出しの装飾設定
-\newtcolorbox{sectionbox}[1][]{
-  enhanced,
-  colback=structure.fg!20!white,
-  colframe=structure.fg,
-  arc=5pt,
-  outer arc=5pt,
-  boxrule=1pt,
-  drop fuzzy shadow,
-  width=\textwidth,
-  height=1.2cm,
-  valign=center,
-  halign=center,
-  #1
-}
-
 \newcommand{\decoratedsection}[1]{%
-  \begin{sectionbox}
-    \color{structure.fg}\Large\bfseries #1
-  \end{sectionbox}
+  \begin{tcolorbox}[title=#1,
+                    colback=forestgreen!10!white,
+                    colbacktitle=forestgreen!40!white,
+                    coltitle=black]
+    \color{black}\Large\bfseries #1
+  \end{tcolorbox}
 }
 
 % タイトルページの設定
