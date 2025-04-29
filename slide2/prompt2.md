@@ -28,11 +28,36 @@ preambleは必ずこれを使用
 \usepackage{graphicx}
 \usepackage{hyperref}
 \usepackage{fancybox}
+\usepackage{tikz}
+\usetikzlibrary{shadows}
 
 % スライドのスタイル設定
 \setbeamertemplate{navigation symbols}{}
 \setbeamertemplate{footline}[frame number]
 \setbeamertemplate{headline}{}
+
+% 見出しのスタイル設定
+\setbeamertemplate{section in toc}[sections numbered]
+\setbeamertemplate{subsection in toc}[subsections numbered]
+\setbeamercolor{section in toc}{fg=structure}
+\setbeamercolor{subsection in toc}{fg=structure}
+
+% 見出しの装飾設定
+\newcommand{\decoratedsection}[1]{%
+  \begin{tikzpicture}[remember picture,overlay]
+    \node[fill=structure.fg!20!white, 
+          rounded corners=5pt,
+          drop shadow={shadow xshift=2pt, shadow yshift=-2pt},
+          minimum width=0.9\paperwidth,
+          minimum height=1.2cm,
+          anchor=north] at (current page.north) {%
+      \begin{minipage}{0.8\paperwidth}
+        \centering
+        \color{structure.fg}\Large\bfseries #1
+      \end{minipage}
+    };
+  \end{tikzpicture}
+}
 
 % タイトルページの設定
 \title{}
