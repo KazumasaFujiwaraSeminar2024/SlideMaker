@@ -28,8 +28,8 @@ preambleは必ずこれを使用
 \usepackage{graphicx}
 \usepackage{hyperref}
 \usepackage{fancybox}
-\usepackage{tikz}
-\usetikzlibrary{shadows}
+\usepackage{tcolorbox}
+\tcbuselibrary{skins}
 
 % スライドのスタイル設定
 \setbeamertemplate{navigation symbols}{}
@@ -43,20 +43,25 @@ preambleは必ずこれを使用
 \setbeamercolor{subsection in toc}{fg=structure}
 
 % 見出しの装飾設定
+\newtcolorbox{sectionbox}[1][]{
+  enhanced,
+  colback=structure.fg!20!white,
+  colframe=structure.fg,
+  arc=5pt,
+  outer arc=5pt,
+  boxrule=1pt,
+  drop fuzzy shadow,
+  width=\textwidth,
+  height=1.2cm,
+  valign=center,
+  halign=center,
+  #1
+}
+
 \newcommand{\decoratedsection}[1]{%
-  \begin{tikzpicture}[remember picture,overlay]
-    \node[fill=structure.fg!20!white, 
-          rounded corners=5pt,
-          drop shadow={shadow xshift=2pt, shadow yshift=-2pt},
-          minimum width=0.9\paperwidth,
-          minimum height=1.2cm,
-          anchor=north] at (current page.north) {%
-      \begin{minipage}{0.8\paperwidth}
-        \centering
-        \color{structure.fg}\Large\bfseries #1
-      \end{minipage}
-    };
-  \end{tikzpicture}
+  \begin{sectionbox}
+    \color{structure.fg}\Large\bfseries #1
+  \end{sectionbox}
 }
 
 % タイトルページの設定
