@@ -42,12 +42,17 @@ preambleは必ずこれを使用
 \setbeamertemplate{tcolorbox}[title=example]
 
 % 見出しの装飾設定
-\newcommand{\decoratedsection}[1]{%
+\newcommand{\decoratedsection}[2]{%
   \begin{tcolorbox}[title=#1,
                     colback=green!10!white,
                     colbacktitle=green!40!white,
-                    coltitle=black]
+                    coltitle=black,
+                    enhanced,
+                    attach boxed title to top left={xshift=1cm,yshift=-2mm},
+                    boxed title style={colback=green!40!white,colframe=green!40!white}]
     \color{black}\Large\bfseries #1
+    \vspace{0.5cm}
+    \normalsize\normalfont #2
   \end{tcolorbox}
 }
 
