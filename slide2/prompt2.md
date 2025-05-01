@@ -39,6 +39,7 @@ preambleは必ずこれを使用
 
 % スライドタイトルのスタイル設定
 \setbeamertemplate{frametitle}{%
+  \vspace*{-0.5cm}%
   \begin{beamercolorbox}[wd=\paperwidth,ht=1.2cm,dp=0.3cm,leftskip=0pt,rightskip=0pt]{frametitle}
     \hspace*{1em}\Huge\insertframetitle
   \end{beamercolorbox}
