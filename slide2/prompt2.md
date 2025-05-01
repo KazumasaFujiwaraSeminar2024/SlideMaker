@@ -29,6 +29,7 @@ preambleは必ずこれを使用
 \usepackage{hyperref}
 \usepackage{fancybox}
 \usepackage{tcolorbox}
+\usetheme{Copenhagen}
 \tcbuselibrary{skins}
 
 % スライドのスタイル設定
