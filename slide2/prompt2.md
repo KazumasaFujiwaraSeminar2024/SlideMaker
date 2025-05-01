@@ -44,9 +44,9 @@ preambleは必ずこれを使用
 }
 
 % セクションのスタイル設定
-\newenvironment{sectionblock}[2]{%
-  \textbf{\large #1}\par\vspace{0.5em}%
+\newenvironment{sectionblock}[1]{%
   \begin{minipage}{\textwidth}%
+    \textbf{\large #1}\par\vspace{0.5em}%
 }{%
   \end{minipage}\vspace{1em}%
 }
@@ -54,7 +54,9 @@ preambleは必ずこれを使用
 % セクションコンテンツ用マクロ
 \newcommand{\sectioncontent}[2]{%
   \begin{sectionblock}{#1}%
-    #2%
+    \begin{itemize}%
+      #2%
+    \end{itemize}%
   \end{sectionblock}%
 }
 ```
