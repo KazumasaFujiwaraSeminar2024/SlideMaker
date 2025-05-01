@@ -36,15 +36,25 @@ preambleは必ずこれを使用
 \setbeamertemplate{footline}[frame number]
 \setbeamertemplate{headline}{}
 
-%スライドタイトルのスタイル設定
-\newcommand{\frametitle}{概要}
+% スライドタイトルのスタイル設定
+\setbeamertemplate{frametitle}{%
+  \begin{beamercolorbox}[wd=\paperwidth,ht=1.2cm,dp=0.3cm]{frametitle}
+    \hspace*{1em}\insertframetitle
+  \end{beamercolorbox}
+}
 
 % セクションのスタイル設定
+\newenvironment{sectionblock}[2]{%
+  \textbf{\large #1}\par\vspace{0.5em}%
+  \begin{minipage}{\textwidth}%
+}{%
+  \end{minipage}\vspace{1em}%
+}
+
+% セクションコンテンツ用マクロ
 \newcommand{\sectioncontent}[2]{%
-  \begin{minipage}[t]{\textwidth}
-    \textbf{\large #1}\\[0.5em]
-    #2
-  \end{minipage}
-  \vspace{1em}
+  \begin{sectionblock}{#1}%
+    #2%
+  \end{sectionblock}%
 }
 ```
