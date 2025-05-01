@@ -37,21 +37,38 @@ preambleは必ずこれを使用
 \setbeamertemplate{footline}[frame number]
 \setbeamertemplate{headline}{}
 
-% 見出しのスタイル設定
-\setbeamertemplate{tcolorbox}
-
-% 見出しの装飾設定
-\newcommand{\decoratedsection}[2]{%
+% フレームタイトルのスタイル設定
+\setbeamertemplate{frametitle}{%
   \begin{tcolorbox}[
-                    colback=green!10!white,
-                    colbacktitle=green!40!white,
-                    coltitle=black,
-                    enhanced,
-                    attach boxed title to top left={xshift=1cm,yshift=-2mm},
-                    boxed title style={colback=green!40!white,colframe=green!40!white}]
-    \color{black}\Large\bfseries #1
-    \vspace{0.5cm}
-    \normalsize\normalfont #2
+    colback=blue!20!white,
+    colframe=blue!40!white,
+    enhanced,
+    sharp corners,
+    boxrule=0pt,
+    arc=0pt,
+    outer arc=0pt,
+    boxsep=0pt,
+    left=0pt,
+    right=0pt,
+    top=0pt,
+    bottom=0pt,
+    width=\paperwidth,
+    height=1.2cm,
+    valign=center,
+    halign=left,
+    before skip=0pt,
+    after skip=0pt
+  ]
+    \insertframetitle
   \end{tcolorbox}
+}
+
+% セクションのスタイル設定
+\newcommand{\sectioncontent}[2]{%
+  \begin{minipage}[t]{\textwidth}
+    \textbf{\large #1}\\[0.5em]
+    #2
+  \end{minipage}
+  \vspace{1em}
 }
 ```
