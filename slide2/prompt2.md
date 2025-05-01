@@ -36,31 +36,8 @@ preambleは必ずこれを使用
 \setbeamertemplate{footline}[frame number]
 \setbeamertemplate{headline}{}
 
-% フレームタイトルのスタイル設定
-\setbeamertemplate{frametitle}{%
-  \begin{tcolorbox}[
-    colback=blue!20!white,
-    colframe=blue!40!white,
-    enhanced,
-    sharp corners,
-    boxrule=0pt,
-    arc=0pt,
-    outer arc=0pt,
-    boxsep=0pt,
-    left=0pt,
-    right=0pt,
-    top=0pt,
-    bottom=0pt,
-    width=\paperwidth,
-    height=1.2cm,
-    valign=center,
-    halign=left,
-    before skip=0pt,
-    after skip=0pt
-  ]
-    \insertframetitle
-  \end{tcolorbox}
-}
+%スライドタイトルのスタイル設定
+\newcommand{\frametitle}{概要}
 
 % セクションのスタイル設定
 \newcommand{\sectioncontent}[2]{%
