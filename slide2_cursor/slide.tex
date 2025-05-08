@@ -1,0 +1,60 @@
+% !TEX program = lualatex
+\documentclass[aspectratio=169]{beamer}
+\usepackage{luatexja}
+\usepackage{amsmath,amssymb}
+\usepackage{graphicx}
+\usepackage{hyperref}
+\usepackage{fancybox}
+\usepackage{tcolorbox}
+\usetheme{Copenhagen}
+\tcbuselibrary{skins}
+
+% スライドのスタイル設定
+\setbeamertemplate{navigation symbols}{}
+\setbeamertemplate{footline}[frame number]
+\setbeamertemplate{headline}{}
+
+% スライドタイトルのスタイル設定
+\setbeamertemplate{frametitle}{%
+  \vspace*{-0.2cm}%
+  \begin{beamercolorbox}[wd=\paperwidth,ht=1.2cm,dp=0.3cm,leftskip=0pt,rightskip=0pt]{frametitle}
+    \hspace*{1em}\Huge\insertframetitle
+  \end{beamercolorbox}
+}
+
+% セクションのスタイル設定
+\newenvironment{sectionblock}[1]{%
+  \begin{minipage}{\textwidth}%
+    \textbf{\large #1}\par\vspace{0.5em}%
+}{%
+  \end{minipage}\vspace{1em}%
+}
+
+% セクションコンテンツ用マクロ
+\newcommand{\sectioncontent}[2]{%
+  \begin{sectionblock}{#1}%
+    \begin{itemize}%
+      #2%
+    \end{itemize}%
+  \end{sectionblock}%
+}
+
+\begin{document}
+
+\begin{frame}
+  \frametitle{概要}
+  
+  \sectioncontent{背景}{%
+    \item 常微分方程式の初期値問題における解の一意性の証明
+  }
+  
+  \sectioncontent{目的}{%
+    \item 完備性を利用した大域解の一意性の証明
+  }
+  
+  \sectioncontent{主定理}{%
+    \item $f$が$I \times \mathbb{R}$上でLipshitz連続ならば、初期値問題の解は$C(I,\mathbb{R})$上で一意存在する
+  }
+\end{frame}
+
+\end{document} 
