@@ -9,10 +9,12 @@
 \usetheme{Copenhagen}
 \tcbuselibrary{skins}
 
+% スライドのスタイル設定
 \setbeamertemplate{navigation symbols}{}
 \setbeamertemplate{footline}[frame number]
 \setbeamertemplate{headline}{}
 
+% スライドタイトルのスタイル設定
 \setbeamertemplate{frametitle}{%
   \vspace*{-0.2cm}%
   \begin{beamercolorbox}[wd=\paperwidth,ht=1.2cm,dp=0.3cm,leftskip=0pt,rightskip=0pt]{frametitle}
@@ -20,6 +22,7 @@
   \end{beamercolorbox}
 }
 
+% セクションのスタイル設定
 \newenvironment{sectionblock}[1]{%
   \begin{minipage}{\textwidth}%
     \textbf{\large #1}\par\vspace{0.5em}%
@@ -27,6 +30,7 @@
   \end{minipage}\vspace{1em}%
 }
 
+% セクションコンテンツ用マクロ
 \newcommand{\sectioncontent}[2]{%
   \begin{sectionblock}{#1}%
     \begin{itemize}%
@@ -37,21 +41,24 @@
 
 \begin{document}
 
-\begin{frame}
-\frametitle{概要}
+\begin{frame}{概要}
 
 \sectioncontent{背景}{
-  \item 常微分方程式の理論的理解を深めたいという動機から研究を開始
-  \item 解析学の学習を通じて一意性に関心を持つ
+  \item 高校では三角関数の定義を深く理解していなかった
+  \item 大学で常微分方程式に関心を持った
 }
 
 \sectioncontent{目的}{
-  \item 解の存在と一意性を理論的に証明する
+  \item 三角関数の構成原理を常微分方程式から理解
 }
 
 \sectioncontent{主定理}{
-  \item Picardの逐次近似法を用い、連続関数空間の完備性により解の存在を示す
-  \item Gronwallの不等式により初期値問題の解の一意性を保証する
+  \item $\ddot{f} + f = 0$ の解として正弦関数と余弦関数を導出
+}
+
+\sectioncontent{方法}{
+  \item 初期値問題を解き、関数の性質を解析
+  \item 微分方程式の一般解から三角関数を定義
 }
 
 \end{frame}
