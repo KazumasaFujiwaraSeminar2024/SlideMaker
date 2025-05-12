@@ -1,0 +1,57 @@
+% !TEX program = lualatex
+\documentclass[aspectratio=169]{beamer}
+\usepackage{luatexja}
+\usepackage{amsmath,amssymb}
+\usepackage{graphicx}
+\usepackage{hyperref}
+\usepackage{fancybox}
+\usepackage{tcolorbox}
+\usetheme{Copenhagen}
+\tcbuselibrary{skins}
+
+\setbeamertemplate{navigation symbols}{}
+\setbeamertemplate{footline}[frame number]
+\setbeamertemplate{headline}{}
+
+\setbeamertemplate{frametitle}{%
+  \vspace*{-0.2cm}%
+  \begin{beamercolorbox}[wd=\paperwidth,ht=1.2cm,dp=0.3cm,leftskip=0pt,rightskip=0pt]{frametitle}
+    \hspace*{1em}\Huge\insertframetitle
+  \end{beamercolorbox}
+}
+
+\newenvironment{sectionblock}[1]{%
+  \begin{minipage}{\textwidth}%
+    \textbf{\large #1}\par\vspace{0.5em}%
+}{%
+  \end{minipage}\vspace{1em}%
+}
+
+\newcommand{\sectioncontent}[2]{%
+  \begin{sectionblock}{#1}%
+    \begin{itemize}%
+      #2%
+    \end{itemize}%
+  \end{sectionblock}%
+}
+
+\begin{document}
+\begin{frame}
+
+\sectioncontent{目的}{
+  \item 常微分方程式の初期値問題における解の一意性を証明
+}
+
+\sectioncontent{理論的準備}{
+  \item \( C(I; \mathbb{R}) \) の完備性を確認
+  \item 積分作用素が連続線形であることを示す
+}
+
+\sectioncontent{主定理と証明の要点}{
+  \item \( f \) がLipschitz連続なら解は一意に存在
+  \item Picardの逐次近似法により解を構成
+  \item Gronwallの不等式により一意性を証明
+}
+
+\end{frame}
+\end{document}
