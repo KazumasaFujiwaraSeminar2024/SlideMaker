@@ -1,0 +1,67 @@
+% !TEX program = lualatex
+\documentclass[aspectratio=169]{beamer}
+\usepackage{luatexja}
+\usepackage{amsmath,amssymb}
+\usepackage{graphicx}
+\usepackage{hyperref}
+\usepackage{fancybox}
+\usepackage{tcolorbox}
+\usetheme{Copenhagen}
+\tcbuselibrary{skins}
+
+% スライドのスタイル設定
+\setbeamertemplate{navigation symbols}{}
+\setbeamertemplate{footline}[frame number]
+\setbeamertemplate{headline}{}
+
+% スライドタイトルのスタイル設定
+\setbeamertemplate{frametitle}{%
+  \vspace*{-0.2cm}%
+  \begin{beamercolorbox}[wd=\paperwidth,ht=1.2cm,dp=0.3cm,leftskip=0pt,rightskip=0pt]{frametitle}
+    \hspace*{1em}\Huge\insertframetitle
+  \end{beamercolorbox}
+}
+
+% セクションのスタイル設定
+\newenvironment{sectionblock}[1]{%
+  \begin{minipage}{\textwidth}%
+    \textbf{\large #1}\par\vspace{0.5em}%
+}{%
+  \end{minipage}\vspace{1em}%
+}
+
+% セクションコンテンツ用マクロ
+\newcommand{\sectioncontent}[2]{%
+  \begin{sectionblock}{#1}%
+    \begin{itemize}%
+      #2%
+    \end{itemize}%
+  \end{sectionblock}%
+}
+
+\begin{document}
+
+\begin{frame}
+\frametitle{定義}
+
+\sectioncontent{積分作用素}{
+  \item Riemann積分の線形性と単調性を確認
+  \item 関数空間 $C(I; \mathbb{R})$ を導入
+  \item 積分作用素が連続線形作用素であることを示す
+}
+
+\sectioncontent{関数列と完備性}{
+  \item $C(I; \mathbb{R})$ の完備性を証明
+  \item 積分と極限の順序交換の条件を確認
+  \item 積分作用素の連続性とその応用を示す
+}
+
+\sectioncontent{初期値問題}{
+  \item 常微分方程式の初期値問題を積分方程式に変換
+  \item Picardの逐次近似法による解の構成
+  \item 完備性と作用素の性質を用いて一意性を示す
+}
+
+\end{frame}
+
+\end{document}
