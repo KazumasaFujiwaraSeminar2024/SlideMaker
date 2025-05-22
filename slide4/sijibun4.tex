@@ -41,25 +41,24 @@
 
 \begin{document}
 
-\begin{frame}
-\frametitle{定義}
+\begin{frame}{定義}
+
+\sectioncontent{関数空間とノルム}{
+  \item 有界閉区間 $I$ 上の連続関数全体の集合 $C(I; \mathbb{R})$ を考える．
+  \item 関数 $f$ に対して $\|f\| = \sup_{x \in I} |f(x)|$ によりノルムを定める．
+  \item この空間はノルム空間となり，完備性を持つ（バナッハ空間）．
+}
 
 \sectioncontent{積分作用素}{
-  \item Riemann積分の線形性と単調性を確認
-  \item 関数空間 $C(I; \mathbb{R})$ を導入
-  \item 積分作用素が連続線形作用素であることを示す
+  \item Riemann積分は連続関数に対し定義され，線形性・単調性を持つ．
+  \item 積分作用素 $T(f)(x) = \int_a^x f(t)\,dt$ は線形かつ連続．
+  \item これは $C(I; \mathbb{R})$ 上の連続線形写像である．
 }
 
-\sectioncontent{関数列と完備性}{
-  \item $C(I; \mathbb{R})$ の完備性を証明
-  \item 積分と極限の順序交換の条件を確認
-  \item 積分作用素の連続性とその応用を示す
-}
-
-\sectioncontent{初期値問題}{
-  \item 常微分方程式の初期値問題を積分方程式に変換
-  \item Picardの逐次近似法による解の構成
-  \item 完備性と作用素の性質を用いて一意性を示す
+\sectioncontent{初期値問題の形式}{
+  \item 微分方程式：$\frac{d}{dx}Y(x) = f(x, Y(x)),\quad Y(a) = Y_0$
+  \item 解の構成にはPicardの逐次近似法を用いる．
+  \item 一意性はGronwallの不等式により示される．
 }
 
 \end{frame}
