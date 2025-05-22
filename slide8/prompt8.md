@@ -20,7 +20,6 @@
 * `\begin{theorem}~\end{theorem}` を自動検出し、**結論セクションの内容として要点を抽出**
   * 検出されない場合は他の関連環境（例：定義風に書かれた内容）や明示的に「定義」や「定義する」と記載されている部分の抽出
 * 複数ある場合、中心的な主張（番号順、または“main”、“重要”などの語を含む）を優先
-* 不要な証明や補足は除外する（`\begin{definition},\begin{lemma},\begin{proposition},\begin{corollary},\begin{proof}` 以降は無視）
 
 ## preamble
 preambleは必ずこれを使用：
