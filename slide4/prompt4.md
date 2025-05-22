@@ -13,7 +13,8 @@
       * 定義：40-50文字
 
 ## セオレム要約の追加要件
-* `\begin{Definition}~\end{Definition}` を自動検出し、**定義セクションの内容として要点を抽出**
+* `\begin{Definition}`は`\begin{definition}`と同じpreambleである
+* `\begin{definition}~\end{definition}` を自動検出し、**定義セクションの内容として要点を抽出**
   * 検出されない場合は他の関連環境（例：定義風に書かれた内容）や明示的に「定義」や「定義する」と記載されている部分の抽出
 * 複数ある場合、中心的な主張（番号順、または“main”、“重要”などの語を含む）を優先
 * 不要な証明や補足は除外する（`\begin{proof},\begin{lemma},\begin{proposition},\begin{corollary},\begin{theorem}` 以降は無視）
