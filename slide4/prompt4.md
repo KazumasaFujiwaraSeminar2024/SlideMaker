@@ -13,9 +13,9 @@
       * 定義：40-50文字
 
 ## セオレム要約の追加要件
-* `\begin{theorem}~\end{theorem}` を自動検出し、**定義セクションの内容として要点を抽出**
+* `\begin{definition}~\end{definition}` を自動検出し、**定義セクションの内容として要点を抽出**
 * 複数ある場合、中心的な主張（番号順、または“main”、“重要”などの語を含む）を優先
-* 不要な証明や補足は除外する（`\begin{proof},\begin{lemma},\begin{proposition},\begin{corollary},\begin{definition}` 以降は無視）
+* 不要な証明や補足は除外する（`\begin{proof},\begin{lemma},\begin{proposition},\begin{corollary},\begin{theorem}` 以降は無視）
 
 ## preamble
 preambleは必ずこれを使用：
