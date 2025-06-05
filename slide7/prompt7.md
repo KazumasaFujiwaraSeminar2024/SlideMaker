@@ -48,12 +48,7 @@ preambleは必ずこれを使用：
 \setbeamertemplate{headline}{}
 
 % スライドタイトルのスタイル設定
-\setbeamertemplate{frametitle}{%
-  \vspace*{-0.2cm}%
-  \begin{beamercolorbox}[wd=\paperwidth,ht=1.2cm,dp=0.3cm,leftskip=0pt,rightskip=0pt]{frametitle}
-    \hspace*{1em}\Huge\insertframetitle
-  \end{beamercolorbox}
-}
+\setbeamertemplate{frametitle}{}
 
 % セクションコンテンツ用マクロ
 \newcommand{\sectioncontent}[2]{%
