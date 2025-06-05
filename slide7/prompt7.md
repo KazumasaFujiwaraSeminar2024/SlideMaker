@@ -45,9 +45,6 @@ preambleは必ずこれを使用：
 \setbeamertemplate{footline}[frame number]
 \setbeamertemplate{headline}{}
 
-% スライドタイトルのスタイル設定
-\setbeamertemplate{frametitle}{}
-
 % セクションコンテンツ用マクロ
 \newcommand{\sectioncontent}[2]{%
   \begin{sectionblock}{#1}%
