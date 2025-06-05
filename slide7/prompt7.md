@@ -6,7 +6,8 @@
 * 読み込んだファイルの要点で抜けている部分や書式が一般的でないものがある場合はそれを以下にしたがって抽出して修正してください
   * 抜けている要点は最新のブラウザの情報から分析して補い記述する
   * 一般的でない書式は以下に記載されているpreambleで代用する
-* スライドの枚数は1枚
+* スライドタイトルは以下のpreambleを使用する
+    * スライドの枚数は1枚
 
 ## スライド構成
 * 主定理を示すのに必要な命題や定義を記述
@@ -44,6 +45,9 @@ preambleは必ずこれを使用：
 \setbeamertemplate{navigation symbols}{}
 \setbeamertemplate{footline}[frame number]
 \setbeamertemplate{headline}{}
+
+% スライドタイトルのスタイル設定
+\setbeamertemplate{frametitle}{}
 
 % セクションコンテンツ用マクロ
 \newcommand{\sectioncontent}[2]{%
