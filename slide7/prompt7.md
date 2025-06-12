@@ -51,6 +51,14 @@ preambleは必ずこれを使用：
 % スライドタイトルのスタイル設定
 \setbeamertemplate{frametitle}{}
 
+% セクションのスタイル設定
+\newenvironment{sectionblock}[1]{%
+  \begin{minipage}{\textwidth}%
+    \textbf{\large #1}\par\vspace{0.5em}%
+}{%
+  \end{minipage}\vspace{1em}%
+}
+
 % セクションコンテンツ用マクロ
 \newcommand{\sectioncontent}[2]{%
   \begin{sectionblock}{#1}%
