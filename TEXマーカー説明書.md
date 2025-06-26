@@ -14,7 +14,7 @@
 
 # マーカー一覧
 
-* [背景](#background)
+* [背景]
 * [目的](#quote)
 * [主定理](#theorem)
 * [主張](#claim)
@@ -24,7 +24,6 @@
 * [補題](#heading)
 * [証明](#proof)
 
-<a id="background"></a>
 <h2>背景</h2>
 
 研究の背景・必要性を説明するマーカー
