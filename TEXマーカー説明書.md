@@ -1,5 +1,5 @@
 ---
-title:
+title: texコードマーカー説明書
 file_version: 1
 last_updated: 2025-06-26
 ---
@@ -24,12 +24,12 @@ last_updated: 2025-06-26
 
 * [背景](#section)
 * [目的](#quote)
-* [主定理](#theorem)
+* [主定理](#Theorem)
 * [主張](#claim)
 * [結論](#section)
-* [定義](#definition)
-* [命題](#proposition)
-* [補題](#heading)
+* [定義](#Definition)
+* [命題](#Proposition)
+* [補題](#Lemma)
 * [証明](#proof)
 
 <a id="section"></a>
@@ -144,7 +144,7 @@ last_updated: 2025-06-26
 
 <br>
 
-<a id="theorem"></a>
+<a id="Theorem"></a>
 <h2>主定理</h2>
 
 研究の主要な成果・定式化された主張を掲示するマーカー
@@ -194,9 +194,9 @@ last_updated: 2025-06-26
 
 ```tex
 %begin_主定理
-\begin{theorem}
+\begin{Theorem}
 内容
-\end{theorem}
+\end{Theorem}
 %end_主定理
 ```
 
@@ -348,9 +348,9 @@ last_updated: 2025-06-26
 
 ```tex
 %begin_定義
-\begin{definition}
+\begin{Definition}
 内容
-\end{definition}
+\end{Definition}
 %end_定義
 ```
 
@@ -358,7 +358,7 @@ last_updated: 2025-06-26
 
 <br>
 
-<a id="proposition"></a>
+<a id="Proposition"></a>
 <h2>命題</h2>
 
 中間的な成果や主定理を補助する事実を掲示するマーカー
@@ -408,9 +408,9 @@ last_updated: 2025-06-26
 
 ```tex
 %begin_命題
-\begin{proposition}
+\begin{Proposition}
 内容
-\end{proposition}
+\end{Proposition}
 %end_命題
 ```
 
@@ -418,7 +418,7 @@ last_updated: 2025-06-26
 
 <br>
 
-<a id="lemma"></a>
+<a id="Lemma"></a>
 <h2>補題</h2>
 
 証明を補助する小さな定理・準備段階の結果を掲示するマーカー
@@ -465,9 +465,9 @@ last_updated: 2025-06-26
 
 ```tex
 %begin_補題
-\begin{lemma}
+\begin{Lemma}
 内容
-\end{lemma}
+\end{Lemma}
 %end_補題
 ```
 
