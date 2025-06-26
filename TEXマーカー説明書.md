@@ -117,13 +117,15 @@ last_updated: 2025-06-26
 %end_目的
 ```
 
-<details open><summary>説明</summary>
+<details open><summary>概要</summary>
 
-概要
 
 この研究で何を達成しようとしているのかを明確に示す部分です。
 
-役割
+</details>
+
+<details open><summary>役割</summary>
+
 ①研究の方向性を明確にする
     ・論文全体が「何のために行われているのか」を示す。
     ・研究のゴールや達成すべき課題を明らかにする。
@@ -140,7 +142,9 @@ last_updated: 2025-06-26
     ・研究がどんな新しい知見・技術・理論を提供するのかを示唆する。
     ・研究の新規性や社会的・学術的な価値を強調する。
 
-使い方
+</details>
+
+<details open><summary>使い方</summary>
 
 ```tex
 %begin_目的
@@ -167,9 +171,7 @@ last_updated: 2025-06-26
 %end_主定理
 ```
 
-<details open><summary>説明</summary>
-
-概要
+<details open><summary>概要</summary>
 
 論文で最も重要な成果・主張を定式化したもの
 以下の内容を簡潔にまとめた部分を指す
@@ -179,7 +181,9 @@ last_updated: 2025-06-26
 3.定理の意義・位置づけ
 4.新規性の要点
 
-役割
+</details>
+
+<details open><summary>役割</summary>
 
 ①論文の中心的成果を定式化する
     ・論文が最も強調したい新しい発見・主張を厳密に表現する。
@@ -200,7 +204,9 @@ last_updated: 2025-06-26
     ・将来の研究の基礎になる。
     ・ほかの研究者が、主定理を利用して新たな結果を導くことができる。
 
-使い方
+</details>
+
+<details open><summary>使い方</summary>
 
 ```tex
 %begin_主定理
@@ -226,9 +232,7 @@ last_updated: 2025-06-26
 %end_主張
 ```
 
-<details open><summary>説明</summary>
-
-概要
+<details open><summary>概要</summary>
 
 その論文が中心的に述べている「新しい主張・成果・貢献」です。
 主定理よりも柔軟な文章的表現での主要な主張をまとめます
@@ -239,7 +243,9 @@ last_updated: 2025-06-26
 3.どんな成果を得たのか(主張内容)
 4.それがなぜ重要なのか
 
-役割
+</details>
+
+<details open><summary>役割</summary>
 
 ①論文の中心的なメッセージを明確にする
     ・論文が何を新しく示したのか、どんな結論に到達したのかを端的に示す。
@@ -256,7 +262,9 @@ last_updated: 2025-06-26
     ・論文の主張が明確で強いほど、評価での説得力が高まる。
     ・「この論文は何をどこまで主張しているのか」を読者が判断する材料になる。
 
-使い方
+</details>
+
+<details open><summary>使い方</summary>
 
 ```tex
 %begin_主張
@@ -283,13 +291,13 @@ last_updated: 2025-06-26
 %end_結論
 ```
 
-<details open><summary>説明</summary>
-
-概要
+<details open><summary>概要</summary>
 
 論文全体を締めくくり、研究の成果や意義を簡潔にまとめる部分です。
 
-役割
+</details>
+
+<details open><summary>役割</summary>
 
 ①研究の要点・成果のまとめ
     ・何を明らかにしたのか(主張の再確認)
@@ -306,7 +314,9 @@ last_updated: 2025-06-26
     ・今後どのような研究が必要か
     ・発展可能性や応用の可能性
 
-使い方
+</details>
+
+<details open><summary>使い方</summary>
 
 ```tex
 %begin_結論
@@ -333,13 +343,13 @@ last_updated: 2025-06-26
 %end_定義
 ```
 
-<details open><summary>説明</summary>
-
-概要
+<details open><summary>概要</summary>
 
 論文の中で用いる専門用語・概念・記号などの意味を明確にするために与えるものです。
 
-役割
+</details>
+
+<details open><summary>役割</summary>
 
 ①新しい用語・概念の導入
     ・論文で新たに提案する概念を正確に定める
@@ -354,7 +364,9 @@ last_updated: 2025-06-26
 ④既存の定義との差異を明確化
     ・既存の定義を拡張・修正・簡略化している場合は、その違いを明示する。
 
-使い方
+</details>
+
+<details open><summary>使い方</summary>
 
 ```tex
 %begin_定義
@@ -381,9 +393,7 @@ last_updated: 2025-06-26
 %end_命題
 ```
 
-<details open><summary>説明</summary>
-
-概要
+<details open><summary>概要</summary>
 
 以下のときに使う
 
@@ -391,7 +401,9 @@ last_updated: 2025-06-26
 2.主定理を証明するための補助的な事実
 3.論文の論理的な土台を支える部分
 
-役割
+</details>
+
+<details open><summary>役割</summary>
 
 ①証明の中間ステップとして機能する
     ・主定理の証明を支える土台
@@ -414,7 +426,9 @@ last_updated: 2025-06-26
 ⑤研究の構成要素を示す
     ・論文がどのような新しい知識の積み上げで成り立っているのかを整理して示す。
 
-使い方
+</details>
+
+<details open><summary>使い方</summary>
 
 ```tex
 %begin_命題
@@ -441,12 +455,14 @@ last_updated: 2025-06-26
 %end_補題
 ```
 
-<details open><summary>説明</summary>
-
-概要
+<details open><summary>概要</summary>
 
 ・定理や命題を証明するための準備となる小さな定理
 ・証明全体の一部分を整理・単純化する役割を持つ
+
+</details>
+
+<details open><summary>役割</summary>
 
 役割
 
@@ -471,7 +487,9 @@ last_updated: 2025-06-26
     ・補題→命題→定理という流れで論理展開を整理できる。
     ・大きな結果に至る「道筋」を明示できる。
 
-使い方
+</details>
+
+<details open><summary>使い方</summary>
 
 ```tex
 %begin_補題
@@ -498,12 +516,14 @@ last_updated: 2025-06-26
 %end_証明
 ```
 
-<details open><summary>説明</summary>
-
-概要
+<details open><summary>概要</summary>
 
 ・論文の中で掲示した定理・命題・補題が正しいことを、論理的に説明・確認する
 ・証明がどんな考え方や手順で進むのかを簡潔に説明したもの
+
+</details>
+
+<details open><summary>役割</summary>
 
 役割
 
@@ -527,7 +547,9 @@ last_updated: 2025-06-26
     ・研究の着想だけでなく「どのようにしてその結果にたどり着いたのか」を明確に説明する。
     ・読者の理解を助けるとともに、論理的思考のトレーニングにもなる。
 
-使い方
+</details>
+
+<details open><summary>使い方</summary>
 
 ```tex
 %begin_証明
