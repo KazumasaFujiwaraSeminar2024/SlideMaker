@@ -2,8 +2,8 @@
 
 # マーカー一覧
 
-* [背景](#abstract)
-* [目的](#purpose)
+* [背景](#background)
+* [目的](#quote)
 * [主定理](#theorem)
 * [主張](#claim)
 * [結論](#section)
@@ -12,7 +12,7 @@
 * [補題](#heading)
 * [証明](#proof)
 
-<a id="abstract"></a>
+<a id="background"></a>
 <h2>背景</h2>
 
 研究の背景・必要性を説明するマーカー
@@ -64,9 +64,9 @@
 
 ```tex
 %begin_背景
-\begin{abstract}
+\begin{background}
 内容
-\end{abstract}
+\end{background}
 %end_背景
 ```
 
@@ -74,7 +74,7 @@
 
 <br>
 
-<a id="purpose"></a>
+<a id="quote"></a>
 <h2>目的</h2>
 
 研究の目的・目標を明確にするマーカー
@@ -114,9 +114,9 @@
 
 ```tex
 %begin_目的
-\begin{abstract}
+\begin{quote}
 ここに研究の目的を記述
-\end{abstract}
+\end{quote}
 %end_目的
 ```
 
@@ -290,7 +290,7 @@
 
 <br>
 
-<a id="definition"></a>
+<a id="Definition"></a>
 <h2>定義</h2>
 
 用語・記号・概念の意味を明確に定めるマーカー
@@ -398,7 +398,7 @@
 
 <br>
 
-<a id="heading"></a>
+<a id="lemma"></a>
 <h2>補題</h2>
 
 証明を補助する小さな定理・準備段階の結果を掲示するマーカー
