@@ -22,7 +22,15 @@ last_updated: 2025-06-26
 
 ## マーカー一覧
 
-\Mokuji
+* [背景](#section)
+* [目的](#quote)
+* [主定理](#Theorem)
+* [主張](#claim)
+* [結論](#section)
+* [定義](#Definition)
+* [命題](#Proposition)
+* [補題](#Lemma)
+* [証明](#proof)
 
 <a id="section"></a>
 <h2>背景</h2>
