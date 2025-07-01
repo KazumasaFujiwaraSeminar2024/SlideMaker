@@ -94,9 +94,9 @@ last_updated: 2025-06-26
 
 ```tex
 %begin_背景
-\begin{background}
+\begin{section}
 内容
-\end{background}
+\end{section}
 %end_背景
 ```
 
