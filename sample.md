@@ -1,31 +1,74 @@
-# slide全体プロンプト
+# 統合スライド生成プロンプトテンプレート
 
-## slide2
+## 目的
+LaTeX形式の論文ソースから、LuaLaTeXでコンパイル可能なbeamerスライドを自動生成する。
+1スライドまたは複数スライドを作成し、内容に応じて自動的に構成・要約を行う。
 
-### 基本要件
-* LaTeX形式の論文ファイルを読み込み、LuaLaTeXでコンパイル可能なbeamerスライドを作成
-* 入力は通常のLaTeXソースコード
-* 出力は必ず1枚のスライド（スライドタイトル：「概要」）
+## 入力
+- 通常のLaTeXソース(.tex)形式の論文ファイル
+- セクションマーカーやtheorem環境が含まれる
 
-### スライド構成
-* 3つのセクション：「背景」「目的」「主定理」
-* 各セクションは箇条書き形式で記述
-  * 可能な限り少ない項目数
-* 論文の主張や結論を中心に要約
-  * 各セクションの要約の長さは自動調整  
-    * 背景：30-40文字  
-    * 目的：20-30文字  
-    * 主定理：40-50文字  
-* 目的と主定理の接続を確認して生成
+## 出力仕様
+- 出力は1~3枚のスライド
+- 各スライドは以下のいずれかのカテゴリに対応
+  - 概要(背景・目的・主張をまとめた要約)
+  - 主定理(もっとも重要な定理の要約)
+  - 定義(主要な定義の抽出)
+  - 補助命題・補題(主定理を支える要素)
+  - 証明・評価(数式による主張の論理展開)
 
-### セオレム要約の追加要件
-* `\begin{theorem}~\end{theorem}` を自動検出し、**主定理セクションの内容として要点を抽出**
-* 複数ある場合、中心的な主張（番号順、または“main”、“重要”などの語を含む）を優先
-* 不要な証明や補足は除外する（`\begin{proof},\begin{lemma},\begin{proposition},\begin{corollary},\begin{definition}` 以降は無視）
+## スライド構成ルール
+### 共通ルール
+  - 各スライドは
+  ```tex
+  \frametitle{...}
+  ```
+  によって明示されたタイトルを持つ
 
-### preamble
-preambleは必ずこれを使用：
+  - セクション内はすべて
+  ```tex
+  \sectioncontent{タイトル}{箇条書き項目}
+  ```
+  形式で記述
 
+  - 箇条書きは可能な限り少なく、簡潔な表現(最大3項目)
+  - 必要に応じて途中式なども記述(証明・主定理など)
+
+### スライド種別ごとの要約ルール
+  - スライド種別=概要、タイトル=概要、内容=背景・目的・主張の短い要約、要約文字数目安=(背景：30~40文字、目的：20~30文字、主張：40~50文字)
+
+  - スライド種別=主定理、タイトル=主定理、内容=最重要な定理とその要点、要約文字数目安=(40~50文字(箇条書き)+必要な数式)
+
+  - スライド種別=定義、タイトル=定義、内容=論文内の中心的な定義、要約文字数目安=(定義ごとに40~50文字)
+
+  - スライド種別=補助命題、タイトル=補助、内容=主定理を支える命題・補助・定義、要約文字数目安=(数式付き箇条書き(必要に応じて改行))
+
+  - スライド種別=証明、タイトル=証明、内容=不等式や評価を含む数式展開、要約文字数目安=(数式・途中式(箇条書きまたは改行付き))
+
+## 内容抽出方針
+### 定理・命題・定義の抽出
+  - 以下の環境を自動検出して内容抽出
+  ```tex
+  \begin{theorem}...\end{theorem}
+  \begin{definition}...\end{definition}
+  \begin{proposition}...\end{proposition}
+  \begin{lemma}...\end{lemma}
+  ```
+
+  - 検出されたものの中で、次の基準で「主要なもの」を優先的に使用
+    - 出現順(番号順)
+    - 環境タイトルに"main","重要","central"を含む
+  
+  - proof,corollaryなど補足要素は無視
+  - 「定義風」の記述(例：「～定義する」)が検出された場合、補足的に追加可能
+
+## スライドタイトル自動決定の原則
+- 優先順位=高、マーカーor検出対象=(%begin_定義～%end_定義ordefinition環境)、タイトル=定義
+- 優先順位=中、マーカーor検出対象=(theorem環境(主定理))、タイトル=主定理
+- 優先順位=低、マーカーor検出対象=(%begin_背景、%begin_目的、%begin_主張など)、タイトル=概要
+- 優先順位=任意、マーカーor検出対象=(proposition/lema環境)、タイトル=補助命題
+
+## LaTeX preamble(共通)
 ```latex
 % !TEX program = lualatex
 \documentclass[aspectratio=169]{beamer}
@@ -38,12 +81,10 @@ preambleは必ずこれを使用：
 \usetheme{Copenhagen}
 \tcbuselibrary{skins}
 
-% スライドのスタイル設定
 \setbeamertemplate{navigation symbols}{}
 \setbeamertemplate{footline}[frame number]
 \setbeamertemplate{headline}{}
 
-% スライドタイトルのスタイル設定
 \setbeamertemplate{frametitle}{%
   \vspace*{-0.2cm}%
   \begin{beamercolorbox}[wd=\paperwidth,ht=1.2cm,dp=0.3cm,leftskip=0pt,rightskip=0pt]{frametitle}
@@ -51,7 +92,6 @@ preambleは必ずこれを使用：
   \end{beamercolorbox}
 }
 
-% セクションのスタイル設定
 \newenvironment{sectionblock}[1]{%
   \begin{minipage}{\textwidth}%
     \textbf{\large #1}\par\vspace{0.5em}%
@@ -59,7 +99,6 @@ preambleは必ずこれを使用：
   \end{minipage}\vspace{1em}%
 }
 
-% セクションコンテンツ用マクロ
 \newcommand{\sectioncontent}[2]{%
   \begin{sectionblock}{#1}%
     \begin{itemize}%
@@ -68,311 +107,5 @@ preambleは必ずこれを使用：
   \end{sectionblock}%
 }
 ```
-
-## slide3
-
-### 基本要件
-* LaTeX形式の論文ファイルを読み込み、LuaLaTeXでコンパイル可能なbeamerスライドを作成
-* 入力は通常のLaTeXソースコード
-* 出力は必ず1枚のスライド（スライドタイトル：「主定理」）
-
-### スライド構成
-箇条書き形式で記述
-  * 可能な限り少ない項目数
-* 論文の主張や結論を中心に要約
-  * 要約の長さは自動調整  
-    * 主定理：40-50文字  
-* 目的と主定理の接続を確認して生成
-
-### セオレム要約の追加要件
-* `\begin{theorem}~\end{theorem}` を自動検出し、**主定理セクションの内容として要点を抽出**
-* 複数ある場合、中心的な主張（番号順、または“main”、“重要”などの語を含む）を優先
-* 不要な証明や補足は除外する（`\begin{proof},\begin{lemma},\begin{proposition},\begin{corollary},\begin{definition}` 以降は無視）
-
-### preamble
-preambleは必ずこれを使用：
-
-```latex
-% !TEX program = lualatex
-\documentclass[aspectratio=169]{beamer}
-\usepackage{luatexja}
-\usepackage{amsmath,amssymb}
-\usepackage{graphicx}
-\usepackage{hyperref}
-\usepackage{fancybox}
-\usepackage{tcolorbox}
-\usetheme{Copenhagen}
-\tcbuselibrary{skins}
-
-% スライドのスタイル設定
-\setbeamertemplate{navigation symbols}{}
-\setbeamertemplate{footline}[frame number]
-\setbeamertemplate{headline}{}
-
-% スライドタイトルのスタイル設定
-\setbeamertemplate{frametitle}{%
-  \vspace*{-0.2cm}%
-  \begin{beamercolorbox}[wd=\paperwidth,ht=1.2cm,dp=0.3cm,leftskip=0pt,rightskip=0pt]{frametitle}
-    \hspace*{1em}\Huge\insertframetitle
-  \end{beamercolorbox}
-}
-
-% セクションのスタイル設定
-\newenvironment{sectionblock}[1]{%
-  \begin{minipage}{\textwidth}%
-    \textbf{\large #1}\par\vspace{0.5em}%
-}{%
-  \end{minipage}\vspace{1em}%
-}
-
-% セクションコンテンツ用マクロ
-\newcommand{\sectioncontent}[2]{%
-  \begin{sectionblock}{#1}%
-    \begin{itemize}%
-      #2%
-    \end{itemize}%
-  \end{sectionblock}%
-}
-```
-
-## slide4
-
-### 基本要件
-* LaTeX形式の論文ファイルを読み込み、LuaLaTeXでコンパイル可能なbeamerスライドを作成
-* 入力は通常のLaTeXソースコード
-* 出力は必ず1枚のスライド（スライドタイトル：「定義」）
-
-### スライド構成
-* 論文で使われている定義を中心に記述
-* 各セクションは箇条書きで記述
-    * 可能な限り少ない項目数
-    * 作成された文章の長さは自動調整
-      * 定義：40-50文字
-
-### セオレム要約の追加要件
-* `\begin{Definition}`は`\begin{definition}`と同じpreambleである
-* `\begin{definition}~\end{definition}` を自動検出し、**定義セクションの内容として要点を全て抽出**
-  * 検出されない場合は他の関連環境（例：定義風に書かれた内容）や明示的に「定義」や「定義する」と記載されている部分の抽出
-* 複数ある場合、中心的な主張（番号順、または“main”、“重要”などの語を含む）を優先
-* 不要な証明や補足は除外する（`\begin{proof},\begin{lemma},\begin{proposition},\begin{corollary},\begin{theorem}` 以降は無視）
-
-### preamble
-preambleは必ずこれを使用：
-
-```latex
-% !TEX program = lualatex
-\documentclass[aspectratio=169]{beamer}
-\usepackage{luatexja}
-\usepackage{amsmath,amssymb}
-\usepackage{graphicx}
-\usepackage{hyperref}
-\usepackage{fancybox}
-\usepackage{tcolorbox}
-\usetheme{Copenhagen}
-\tcbuselibrary{skins}
-
-% スライドのスタイル設定
-\setbeamertemplate{navigation symbols}{}
-\setbeamertemplate{footline}[frame number]
-\setbeamertemplate{headline}{}
-
-% スライドタイトルのスタイル設定
-\setbeamertemplate{frametitle}{%
-  \vspace*{-0.2cm}%
-  \begin{beamercolorbox}[wd=\paperwidth,ht=1.2cm,dp=0.3cm,leftskip=0pt,rightskip=0pt]{frametitle}
-    \hspace*{1em}\Huge\insertframetitle
-  \end{beamercolorbox}
-}
-
-% セクションのスタイル設定
-\newenvironment{sectionblock}[1]{%
-  \begin{minipage}{\textwidth}%
-    \textbf{\large #1}\par\vspace{0.5em}%
-}{%
-  \end{minipage}\vspace{1em}%
-}
-
-% セクションコンテンツ用マクロ
-\newcommand{\sectioncontent}[2]{%
-  \begin{sectionblock}{#1}%
-    \begin{itemize}%
-      #2%
-    \end{itemize}%
-  \end{sectionblock}%
-}
-```
-
-## slide7
-
-### 基本要件
-* LaTeX形式の論文ファイルを読み込み、LuaLaTeXでコンパイル可能なbeamerスライドを作成
-* 入力は通常のLaTeXソースコード
-* 読み込む際は、以下のマーカーを使用して読み込む
-* 読み込んだファイルの要点で抜けている部分や書式が一般的でないものがある場合はそれを以下にしたがって抽出して修正してください
-  * 抜けている要点は最新のブラウザの情報から分析して補い記述する
-  * 一般的でない書式は以下に記載されているpreambleで代用する
-* スライドに記述する内容の優先順位は「定義」>「命題」>「補題」
-    * 「定義」「命題」「補題」以外は無視
-* スライドタイトルは以下のpreambleを使用する
-    * スライドの枚数は1枚
-
-### スライド構成
-* 主定理を示すのに必要な命題や定義を記述
-  * 「主定理」とは論文の一番重要な定理のこと
-  * 主定理は記述しない
-  * 必要な数式を途中式と共に全て記述
-  * 箇条書きで記述
-  * 可能な限り少ない項目数
-  * 文字の大きさは自動調整
-  * 作成された文章の長さは自動調整
-  * \textbf{}は出力しない
-
-### セオレム要約の追加要件
-* `\begin{theorem}~\end{theorem}`,`\begin{definition}~\end{definition}`を自動検出し、**解析セクションの内容として要点を抽出**
-  * 複数ある場合、中心的な命題や定義（番号順、または“main”、“重要”などの語を含む）を優先
-  * 検出されない場合は他の関連環境（例：定義風に書かれた内容）や明示的に「定義」や「定義する」と記載されている部分の抽出
-* 複数ある場合、中心的な命題や定義（番号順、または“main”、“重要”などの語を含む）を優先
-
-### preamble
-preambleは必ずこれを使用：
-
-```latex
-% !TEX program = lualatex
-\documentclass[aspectratio=169]{beamer}
-\usepackage{luatexja}
-\usepackage{amsmath,amssymb}
-\usepackage{graphicx}
-\usepackage{hyperref}
-\usepackage{fancybox}
-\usepackage{tcolorbox}
-\usetheme{Copenhagen}
-\tcbuselibrary{skins}
-
-% スライドのスタイル設定
-\setbeamertemplate{navigation symbols}{}
-\setbeamertemplate{footline}[frame number]
-\setbeamertemplate{headline}{}
-
-% スライドタイトルのスタイル設定
-\setbeamertemplate{frametitle}{}
-
-% セクションのスタイル設定
-\newenvironment{sectionblock}[1]{%
-  \begin{minipage}{\textwidth}%
-    \textbf{\large #1}\par\vspace{0.5em}%
-}{%
-  \end{minipage}\vspace{1em}%
-}
-
-% セクションコンテンツ用マクロ
-\newcommand{\sectioncontent}[2]{%
-  \begin{sectionblock}{#1}%
-    \begin{itemize}%
-      #2%
-    \end{itemize}%
-  \end{sectionblock}%
-}
-```
-
-### マーカー
-マーカーは以下のとおり
-
-```tex
-%begin_背景
-%end_背景
-%begin_目的
-%end_目的
-%begin_主定理
-%end_主定理
-%begin_主張
-%end_主張
-%begin_結論
-%end_結論
-%begin_定義
-%end_定義
-%begin_命題
-%end_命題
-%begin_補題
-%end_補題
-%begin_証明
-%end_証明
-```
-
-## slide8
-
-### 基本要件
-* LaTeX形式の論文ファイルを読み込み、LuaLaTeXでコンパイル可能なbeamerスライドを作成
-* 入力は通常のLaTeXソースコード
-* 読み込んだファイルの要点で抜けている部分や書式が一般的でないものがある場合はそれを以下にしたがって抽出して修正してください
-  * 抜けている要点は最新のブラウザの情報から分析して補い記述する
-  * 一般的でない書式は以下に記載されているpreambleで代用する
-* スライドタイトル：「概略」「主定理」「証明」
-    * スライドの枚数は3枚以内
-
-### スライド構成
-* 「概略」では論文の結論と主張を要約したものを記述
-  * 結論と主張は出力しない
-  * 箇条書きで記述
-  * 可能な限り少ない項目数
-  * 作成された文章の長さは自動調整
-* 「主定理」では論文の一番重要な定理を記述
-  * 必要な数式を途中式と共に全て記述
-  * 箇条書きで記述
-  * 可能な限り少ない項目数
-  * 作成された文章の長さは自動調整
-  * \textbf{}は出力しない
-* 「証明」では数学的に評価した数式を全て記述
-  * 補足する補題も記述
-  * 評価するとは「説明したいものを不等式の記号を使って、大小関係などを表す」ことをいう
-  * 必要な数式を途中式と共に全て記述
-  * 計算が途中で改行される場合は箇条書きではなく改行して記述
-    * 改行する際は「\\」を使用
-  * 可能な限り少ない項目数
-  * 作成された文章の長さは自動調整
-  * \textbf{}は出力しない
-
-
-
-### セオレム要約の追加要件
-* `\begin{theorem}~\end{theorem}` を自動検出し、**結論セクションの内容として要点を抽出**
-  * 複数ある場合、中心的な主張（番号順、または“main”、“重要”などの語を含む）を優先
-  * 検出されない場合は他の関連環境（例：定義風に書かれた内容）や明示的に「定義」や「定義する」と記載されている部分の抽出
-* 複数ある場合、中心的な主張（番号順、または“main”、“重要”などの語を含む）を優先
-
-### preamble
-preambleは必ずこれを使用：
-
-```latex
-% !TEX program = lualatex
-\documentclass[aspectratio=169]{beamer}
-\usepackage{luatexja}
-\usepackage{amsmath,amssymb}
-\usepackage{graphicx}
-\usepackage{hyperref}
-\usepackage{fancybox}
-\usepackage{tcolorbox}
-\usetheme{Copenhagen}
-\tcbuselibrary{skins}
-
-% スライドのスタイル設定
-\setbeamertemplate{navigation symbols}{}
-\setbeamertemplate{footline}[frame number]
-\setbeamertemplate{headline}{}
-
-% スライドタイトルのスタイル設定
-\setbeamertemplate{frametitle}{%
-  \vspace*{-0.2cm}%
-  \begin{beamercolorbox}[wd=\paperwidth,ht=1.2cm,dp=0.3cm,leftskip=0pt,rightskip=0pt]{frametitle}
-    \hspace*{1em}\Huge\insertframetitle
-  \end{beamercolorbox}
-}
-
-% セクションコンテンツ用マクロ
-\newcommand{\sectioncontent}[2]{%
-  \begin{sectionblock}{#1}%
-    \begin{itemize}%
-      #2%
-    \end{itemize}%
-  \end{sectionblock}%
-}
-```
+## オプション(任意)
+- \textbfの使用制限などは全スライドに一貫したルールで明記
