@@ -9,71 +9,122 @@
 このプロンプトでは、そのTeXファイルから「概要」「目的」「証明」など、
 論文の大事な部分を自動で取り出し、スライドの形に整理します。
 
-## スライドの構成
+## プロジェクト構成
 
-### 表紙スライド
+```
+SlideMaker/
+├── webapp/                 # Flask Webアプリケーション
+│   ├── static/            # 静的ファイル（CSS、JS、画像）
+│   ├── templates/         # HTMLテンプレート
+│   ├── app.py             # Flaskメインアプリケーション
+│   ├── requirements.txt   # Python依存関係
+│   ├── config.py          # 設定ファイル
+│   ├── run.py             # サーバー起動スクリプト
+│   └── README.md          # Webアプリケーション説明書
+├── matome/                # TeXファイル集
+├── slide3/                # スライドサンプル3
+├── slide4/                # スライドサンプル4
+├── slide7/                # スライドサンプル7
+├── slide8/                # スライドサンプル8
+├── webplan/               # Webサービス計画書
+├── 概要/                  # 概要資料
+└── README.md              # このファイル
+```
 
-タイトル、大学名・学部、学籍番号、氏名、指導教員、日付を記載
+## Linuxサーバー上でのFlask運用
 
-発表の基本情報を明確に提示
+### 前提条件
 
-### 背景・目的・主定理のスライド
+1. **Python 3.8以上** がインストールされていること
+2. **pip** がインストールされていること
+3. **Linuxサーバー** にアクセス権限があること
 
-研究の背景：きっかけや前提を簡潔に説明
+### セットアップ手順
 
-研究の目的：目指す課題解決や意義を明示
+1. **Python仮想環境の作成**
+   ```bash
+   cd webapp
+   python3 -m venv venv-slide-maker
+   source venv-slide-maker/bin/activate
+   ```
 
-主定理：論文の中心となる結論を40〜50文字程度で要約
+2. **依存関係のインストール**
+   ```bash
+   pip install -r requirements.txt
+   ```
 
-すべて箇条書きで簡潔に整理
+3. **環境変数の設定**
+   ```bash
+   export FLASK_APP=app.py
+   export FLASK_ENV=production
+   ```
 
-### 定義・用語のスライド
+### サーバーの起動
 
-論文内で使われる重要な用語や記号の定義を紹介
+#### 開発モード
+```bash
+cd webapp
+source venv-slide-maker/bin/activate
+python run.py
+```
 
-各項目は40〜50文字でわかりやすく記述
+#### 本番モード（Gunicorn使用）
+```bash
+cd webapp
+source venv-slide-maker/bin/activate
+gunicorn -w 4 -b 0.0.0.0:5000 app:app
+```
 
-専門用語の理解を補助
+### アクセス方法
 
-### 主定理の補足スライド
+1. サーバーを起動すると、以下のURLでアクセスできます：
+   - ローカル: http://localhost:5000
+   - 外部: http://your-server-ip:5000
 
-主定理の理解に必要な定義・命題・補題を整理
+2. ブラウザでSlide Makerアプリケーションが表示されます。
 
-必要な途中式や条件も含めて記述
+### システムサービスとして登録
 
-数式も見やすく整理
+```bash
+# systemdサービスファイルを作成
+sudo nano /etc/systemd/system/slide-maker.service
+```
 
-### 概略スライド
+サービスファイルの内容：
+```ini
+[Unit]
+Description=Slide Maker Flask Application
+After=network.target
 
-研究の主張や結論を箇条書きで再整理
+[Service]
+User=your-username
+WorkingDirectory=/path/to/SlideMaker/webapp
+Environment="PATH=/path/to/SlideMaker/webapp/venv-slide-maker/bin"
+ExecStart=/path/to/SlideMaker/webapp/venv-slide-maker/bin/gunicorn -w 4 -b 0.0.0.0:5000 app:app
+Restart=always
 
-全体の流れや位置づけを把握できるよう配慮
+[Install]
+WantedBy=multi-user.target
+```
 
-数式や図解を交えて視覚的にわかりやすく
+サービスを有効化：
+```bash
+sudo systemctl daemon-reload
+sudo systemctl enable slide-maker
+sudo systemctl start slide-maker
+```
 
-### 主定理のスライド
+## 開発者向け情報
 
-論文で最も重要な定理を正確に記載
+### 技術スタック
+- **バックエンド**: Python Flask
+- **フロントエンド**: HTML5 + CSS3 + JavaScript
+- **テンプレートエンジン**: Jinja2
+- **Webサーバー**: Gunicorn (本番環境)
+- **開発サーバー**: Flask Development Server
 
-仮定や条件も明示し、必要な数式を含めて提示
-
-スライド1枚で把握できるよう簡潔に整理
-
-### 証明スライド
-
-主定理の証明過程を箇条書き形式で説明
-
-評価（大小関係などの不等式）を明示
-
-使用する補題や補足条件も併記し、論理的に構成
-
-### 全体の特徴
-
-各スライドは40〜50文字程度で情報を圧縮
-
-過不足のない情報整理と視覚的な見やすさを重視
-
-発表・理解に適した論理的で明快な構成
+### Webアプリケーションの詳細
+詳細な使用方法や開発情報については、[webapp/README.md](webapp/README.md)を参照してください。
 
 ## TEXマーカー説明書
 
